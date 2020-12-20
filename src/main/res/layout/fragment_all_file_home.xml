@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/contentView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/appbar"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:paddingBottom="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/space"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/nav_mine_zone"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_height="60dp">
+            <ImageView
+                android:src="@mipmap/base_icon_folder_mine"
+                android:scaleType="centerCrop"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+            <TextView
+                android:id="@+id/nav_mine_zone_text"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:text="@string/etm_mine_zone"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/nav_group_zone"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_height="60dp">
+            <ImageView
+                android:src="@mipmap/base_icon_folder_group"
+                android:scaleType="centerCrop"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+            <TextView
+                android:id="@+id/nav_group_zone_text"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:text="@string/etm_group_zone"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/nav_shared_zone"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_height="60dp">
+            <ImageView
+                android:src="@mipmap/base_icon_folder_public"
+                android:scaleType="centerCrop"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+            <TextView
+                android:id="@+id/nav_shared_zone_text"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:text="@string/etm_shared_zone"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    <!--    <com.google.android.material.navigation.NavigationView-->
+    <!--        android:id="@+id/navView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_gravity="start"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:background="@color/appbar"-->
+    <!--        android:fitsSystemWindows="true"-->
+    <!--        android:paddingBottom="80dp"-->
+    <!--        android:theme="@style/NavigationView_ItemTextAppearance"-->
+    <!--        app:itemTextColor="@color/drawer_text_color"-->
+    <!--        app:menu="@menu/partial_drawer_entries_home_all_file">-->
+
+    <!--    </com.google.android.material.navigation.NavigationView>-->
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

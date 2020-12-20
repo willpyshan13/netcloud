@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Nextcloud Android client application
+
+  Copyright (C) 2012 Bartek Przybylski
+  Copyright (C) 2015-2016 ownCloud Inc.
+  Copyright (C) 2016 Nextcloud
+  Copyright (C) 2019 Tobias Kaminsky
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/scroll"
+    android:layout_height="match_parent"
+    tools:background="@color/primary"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:fillViewport="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginBottom="80dp"
+            android:padding="@dimen/standard_padding">
+
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_marginBottom="@dimen/standard_padding"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_qiji_logo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/standard_half_padding">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <requestFocus />
+
+                    <EditText
+                        android:id="@+id/host_url_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white"
+                        android:contentDescription="@string/auth_host_address"
+                        android:hint="@string/auth_host_url"
+                        android:inputType="textUri"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="@dimen/alternate_padding_right"
+                        android:textColorHint="#7f7f7f"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageView
+                        android:id="@+id/scan_qr"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        android:padding="6dp"
+                        android:src="@drawable/qrcode_scan"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#353535" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/server_status_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/alternate_margin"
+                    android:contentDescription="@string/auth_testing_connection"
+                    android:drawablePadding="@dimen/alternate_half_padding"
+                    android:gravity="center_vertical"
+                    android:minHeight="@dimen/display_text_min_height"
+                    android:text="@string/auth_testing_connection"
+                    android:textColor="@color/login_text_color"
+                    android:visibility="invisible"
+                    app:drawableStartCompat="@android:drawable/stat_notify_sync" />
+
+                <TextView
+                    android:id="@+id/auth_status_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/auth_unauthorized"
+                    android:drawablePadding="@dimen/alternate_half_padding"
+                    android:gravity="center_vertical"
+                    android:text="@string/auth_unauthorized"
+                    android:textColor="@color/login_text_color"
+                    app:drawableStartCompat="@android:drawable/stat_notify_sync" />
+
+
+                <TextView
+                    android:id="@+id/test_server_button"
+                    android:layout_width="280dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/account_btn_bg"
+                    android:gravity="center"
+                    android:onClick="onTestServerConnectionClick"
+                    android:text="前往"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="@string/company_desc"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
