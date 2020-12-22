@@ -1942,12 +1942,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
 //        }
     }
 
-    /**
+    /**on
      * Sets the 'visibility' state of the FAB contained in the fragment.
      * <p>
      * When 'false' is set, FAB visibility is set to View.GONE programmatically.
      *
-     * @param Desired visibility for the FAB.
      */
     public void showFabVisible() {
         if (floatingActionButton == null) {

@@ -2142,9 +2142,9 @@ public class FileDisplayActivity extends FileActivity
 
                             OCFileListFragment fragment = getListOfFilesFragment();
 
-                            if (fragment != null) {
-                                fragment.setLoading(true);
-                            }
+//                            if (fragment != null) {
+//                                fragment.setLoading(true);
+//                            }
 
                             setBackgroundText();
 
