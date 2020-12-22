@@ -128,6 +128,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -189,7 +190,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public static final int FOLDER_TYPE_ALL = 0;
     public static final int FOLDER_TYPE_MINE_ZONE = 1;
     public static final int FOLDER_TYPE_GROUP = 2;
-    public static final int FOLDER_TYPE_PUBLIC  = 3;
+    public static final int FOLDER_TYPE_PUBLIC = 3;
 
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
@@ -211,7 +212,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected SearchEvent searchEvent;
     protected AsyncTask<Void, Void, Boolean> remoteOperationAsyncTask;
     protected String mLimitToMimeType;
-    private FloatingActionButton mFabMain;
+    private AppCompatImageView mFabMain;
 
     private String fileTitle;
 
@@ -241,7 +242,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT));
             mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
-        if (getArguments()!=null) {
+        if (getArguments() != null) {
             fileTitle = getArguments().getString(OCFileListFragment.SEARCH_EVENT_TITLE);
             folderType = getArguments().getInt(OCFileListFragment.FOLDER_TYPE, FOLDER_TYPE_ALL);
         }
@@ -260,10 +261,32 @@ public class OCFileListFragment extends ExtendedListFragment implements
             searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
             onMessageEvent(searchEvent);
         }
-
+        //add pengyushan 20201221 add floating button
+        registerFabListener();
         super.onResume();
     }
 
+    /**
+     * register listener on FAB.
+     */
+    public void registerFabListener() {
+        floatingActionButton = getActivity().findViewById(R.id.fab_main);
+        if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
+            floatingActionButton.setVisibility(View.GONE);
+        } else {
+            floatingActionButton.setVisibility(View.VISIBLE);
+        }
+
+        ThemeUtils.colorFloatingActionButton(floatingActionButton, R.drawable.ic_plus, requireActivity());
+        floatingActionButton.setOnClickListener(v -> {
+            new OCFileListBottomSheetDialog((FileActivity) requireActivity(),
+                                            this,
+                                            deviceInfo,
+                                            accountManager.getUser(),
+                                            getCurrentFile())
+                .show();
+        });
+    }
 
     /**
      * {@inheritDoc}
@@ -312,11 +335,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setChoiceModeAsMultipleModal(savedInstanceState);
         }
 
-        mFabMain = requireActivity().findViewById(R.id.fab_main);
+//        mFabMain = requireActivity().findViewById(R.id.fab_main);
 
-        if (mFabMain != null) { // is not available in FolderPickerActivity
-            ThemeUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
-        }
+//        if (mFabMain != null) { // is not available in FolderPickerActivity
+//            ThemeUtils.colorFloatingActionButton(mFabMain, R.drawable.ic_plus, requireContext());
+//        }
 
         Log_OC.i(TAG, "onCreateView() end");
         return v;
@@ -329,6 +352,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         if (remoteOperationAsyncTask != null) {
             remoteOperationAsyncTask.cancel(true);
+        }
+
+        if (floatingActionButton!=null){
+            floatingActionButton.setVisibility(View.GONE);
         }
         super.onDetach();
     }
@@ -938,7 +965,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             if (file != null) {
                 int position = mAdapter.getItemPosition(file);
-
+                if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
+                    floatingActionButton.setVisibility(View.VISIBLE);
+                }
                 if (file.isFolder()) {
                     resetHeaderScrollingState();
 
@@ -1903,15 +1932,40 @@ public class OCFileListFragment extends ExtendedListFragment implements
 //        if (getActivity() != null) {
 //            getActivity().runOnUiThread(() -> {
 //                if (visible) {
-//                    mFabMain.show();
-//                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext());
+//                    mFabMain.setVisibility(View.VISIBLE);
 //                } else {
-//                    mFabMain.hide();
+//                    mFabMain.setVisibility(View.GONE);
 //                }
 //
 //                showFabWithBehavior(visible);
 //            });
 //        }
+    }
+
+    /**
+     * Sets the 'visibility' state of the FAB contained in the fragment.
+     * <p>
+     * When 'false' is set, FAB visibility is set to View.GONE programmatically.
+     *
+     * @param Desired visibility for the FAB.
+     */
+    public void showFabVisible() {
+        if (floatingActionButton == null) {
+            // is not available in FolderPickerActivity
+            return;
+        }
+
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
+                    if (!mFile.getRemotePath().equals("/")) {
+                        floatingActionButton.setVisibility(View.VISIBLE);
+                    } else {
+                        floatingActionButton.setVisibility(View.GONE);
+                    }
+                }
+            });
+        }
     }
 
     /**
@@ -1929,9 +1983,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 HideBottomViewOnScrollBehavior<FloatingActionButton> behavior =
                     (HideBottomViewOnScrollBehavior<FloatingActionButton>) coordinatorLayoutBehavior;
                 if (visible) {
-                    behavior.slideUp(mFabMain);
+//                    behavior.slideUp(mFabMain);
                 } else {
-                    behavior.slideDown(mFabMain);
+//                    behavior.slideDown(mFabMain);
                 }
             }
         }
@@ -1954,10 +2008,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
                     mFabMain.setEnabled(true);
-                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext());
+//                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext());
                 } else {
                     mFabMain.setEnabled(false);
-                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
+//                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
                 }
             });
         }

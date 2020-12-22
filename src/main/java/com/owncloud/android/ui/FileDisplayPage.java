@@ -19,7 +19,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 public class FileDisplayPage {
-    public OCFileListFragment baseFragment = new OCFileListFragment();
     public HomeAllFileFragment homeFragment = new HomeAllFileFragment();
     public SharedFragment sharedFragment = new SharedFragment();
     public OCFileListFragment favFragment = new OCFileListFragment();
@@ -35,7 +34,6 @@ public class FileDisplayPage {
         Bundle favBundle = new Bundle();
         favBundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(favSearchEvent));
         favFragment.setArguments(favBundle);
-        baseFragment.setArguments(args);
     }
 
     public void show(FragmentActivity activity, Fragment fragment) {
@@ -55,18 +53,11 @@ public class FileDisplayPage {
             transaction.add(R.id.left_fragment_container, fragment, FileDisplayActivity.TAG_LIST_OF_FILES);
         }
 
-        if (!baseFragment.isAdded()){
-            transaction.add(R.id.base_fragment_container, baseFragment, FileDisplayActivity.TAG_LIST_OF_FILES);
-        }
-
         transaction.commit();
     }
 
     public void hideAllWithout(FragmentActivity activity, Fragment fragment) {
         FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-        if (baseFragment != fragment && isShow(baseFragment)) {
-            transaction.hide(baseFragment);
-        }
         if (homeFragment != fragment && isShow(homeFragment)) {
             transaction.hide(homeFragment);
         }

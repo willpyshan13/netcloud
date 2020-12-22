@@ -36,9 +36,11 @@
         <item
             android:id="@+id/nav_videos"
             android:icon="@drawable/nav_videos"
-            android:orderInCategory="0"
-            android:title="@string/drawer_item_videos"
-            android:visible="false" />
+            android:title="@string/drawer_item_transport" />
+        <item
+            android:id="@+id/nav_recently"
+            android:icon="@drawable/nav_recently"
+            android:title="@string/drawer_item_recent" />
         <item
             android:id="@+id/nav_shared"
             android:icon="@drawable/nav_shared"

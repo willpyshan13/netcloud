@@ -305,9 +305,7 @@ public class FileDisplayActivity extends FileActivity
         mPlayerConnection = new PlayerServiceConnection(this);
 
         if (getIntent().getBooleanExtra("Main", false) || isTaskRoot()) {
-            registerFabListener();
             binding.bottomContainer.setVisibility(View.VISIBLE);
-            ThemeUtils.colorFloatingActionButton(binding.fabMain, this);
             bottomNavigationManager = new BottomNavigationManager(binding.pagerBottomTab, R.menu.main_navigation);
             bottomNavigationManager.setOnNavigationListener((menuItem, reselect) -> {
                 if (!reselect) {
@@ -1178,7 +1176,7 @@ public class FileDisplayActivity extends FileActivity
                     listOfFiles.onBrowseUp();
                 }
                 setFile(listOfFiles.getCurrentFile());
-                listOfFiles.setFabVisible(true);
+                listOfFiles.showFabVisible();
                 showSortListGroup(true);
                 cleanSecondFragment();
             }
@@ -2600,25 +2598,6 @@ public class FileDisplayActivity extends FileActivity
                                                                           this);
         fetchRemoteFileTask.execute();
 
-    }
-
-    /**
-     * register listener on FAB.
-     */
-    public void registerFabListener() {
-        FileActivity activity = (FileActivity) getActivity();
-        ThemeUtils.colorFloatingActionButton(binding.fabMain, R.drawable.ic_plus, this);
-        binding.fabMain.setOnClickListener(v -> {
-            if (fileDisplayPage.baseFragment.getCurrentFile() == null) {
-                return;
-            }
-            new OCFileListBottomSheetDialog(activity,
-                                            fileDisplayPage.baseFragment,
-                                            fileDisplayPage.baseFragment.deviceInfo,
-                                            accountManager.getUser(),
-                                            fileDisplayPage.baseFragment.getCurrentFile())
-                .show();
-        });
     }
 
     private boolean isWifi = false;

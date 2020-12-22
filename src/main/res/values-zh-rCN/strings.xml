@@ -9,6 +9,9 @@
     <string name="account_not_found">找不到账号！</string>
     <string name="action_clear_failed_uploads">清除失败上传任务</string>
     <string name="action_edit">编辑</string>
+    <string name="drawer_item_transport">传输</string>
+    <string name="drawer_item_recent">最近</string>
+    <string name="drawer_item_scan">扫描</string>
     <string name="action_empty_notifications">清除所有通知</string>
     <string name="action_empty_trashbin">清空回收站</string>
     <string name="action_send_share">共享</string>
