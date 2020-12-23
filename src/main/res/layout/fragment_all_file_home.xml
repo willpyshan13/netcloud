@@ -37,7 +37,6 @@
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
                 android:text="@string/etm_mine_zone"
-                android:textColor="#333333"
                 android:textSize="16sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -63,7 +62,6 @@
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
                 android:text="@string/etm_group_zone"
-                android:textColor="#333333"
                 android:textSize="16sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -89,7 +87,6 @@
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
                 android:text="@string/etm_shared_zone"
-                android:textColor="#333333"
                 android:textSize="16sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

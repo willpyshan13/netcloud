@@ -36,7 +36,6 @@
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
                 android:text="@string/etm_shared_to_mine"
-                android:textColor="#333333"
                 android:textSize="16sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -62,7 +61,6 @@
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
                 android:text="@string/etm_shared_mine"
-                android:textColor="#333333"
                 android:textSize="16sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -87,7 +85,6 @@
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
                 android:text="@string/etm_shared_link"
-                android:textColor="#333333"
                 android:textSize="16sp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
