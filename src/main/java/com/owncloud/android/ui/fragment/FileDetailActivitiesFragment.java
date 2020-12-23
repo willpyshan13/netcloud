@@ -46,6 +46,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetActivitiesRemoteOperation;
+import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.activities.model.RichObject;
 import com.owncloud.android.lib.resources.comments.MarkCommentsAsReadRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileVersionsRemoteOperation;
@@ -87,6 +88,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_USER = "USER";
+    private static final String ARG_IS = "COMMENT";
     private static final int END_REACHED = 0;
 
     private ActivityAndVersionListAdapter adapter;
@@ -105,15 +107,17 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private FileDetailsActivitiesFragmentBinding binding;
 
+    private boolean isCommentPage = false;
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject ContentResolver contentResolver;
 
-    public static FileDetailActivitiesFragment newInstance(OCFile file, User user) {
+    public static FileDetailActivitiesFragment newInstance(OCFile file, User user, boolean isComment) {
         FileDetailActivitiesFragment fragment = new FileDetailActivitiesFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, file);
         args.putParcelable(ARG_USER, user);
+        args.putBoolean(ARG_IS, isComment);
         fragment.setArguments(args);
         return fragment;
     }
@@ -129,13 +133,13 @@ public class FileDetailActivitiesFragment extends Fragment implements
         }
         file = arguments.getParcelable(ARG_FILE);
         user = arguments.getParcelable(ARG_USER);
-
+        isCommentPage = arguments.getBoolean(ARG_IS);
         if (savedInstanceState != null) {
             file = savedInstanceState.getParcelable(ARG_FILE);
             user = savedInstanceState.getParcelable(ARG_USER);
         }
 
-        binding = FileDetailsActivitiesFragmentBinding.inflate(inflater,container,false);
+        binding = FileDetailsActivitiesFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         setupView();
@@ -163,9 +167,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
         };
 
         binding.commentInputField.getBackground().setColorFilter(
-                ThemeUtils.primaryAccentColor(getContext()),
-                PorterDuff.Mode.SRC_ATOP
-        );
+            ThemeUtils.primaryAccentColor(getContext()),
+            PorterDuff.Mode.SRC_ATOP
+                                                                );
 
         binding.submitComment.setOnClickListener(v -> submitComment());
 
@@ -218,7 +222,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         restoreFileVersionSupported = capability.getFilesVersioning().isTrue();
 
         binding.emptyList.emptyListProgress.getIndeterminateDrawable().setColorFilter(ThemeUtils.primaryAccentColor(getContext()),
-                                                                          PorterDuff.Mode.SRC_IN);
+                                                                                      PorterDuff.Mode.SRC_IN);
         binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_activity, null));
 
         adapter = new ActivityAndVersionListAdapter(getContext(),
@@ -231,6 +235,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
         );
         binding.list.setAdapter(adapter);
 
+        if (isCommentPage) {
+            binding.commentLayout.setVisibility(View.VISIBLE);
+        }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
         binding.list.setLayoutManager(layoutManager);
@@ -375,7 +382,19 @@ public class FileDetailActivitiesFragment extends Fragment implements
         if (binding.swipeContainingList == null) {
             return;
         }
-        adapter.setActivityAndVersionItems(activities, nextcloudClient, clear);
+        List<Object> filter = new ArrayList<>();
+        for (int i = 0;i<activities.size();i++){
+            if (isCommentPage){
+                if (((Activity)activities.get(i)).getType().equals("comments")){
+                    filter.add(activities.get(i));
+                }
+            }else {
+                if (!((Activity)activities.get(i)).getType().equals("comments")){
+                    filter.add(activities.get(i));
+                }
+            }
+        }
+        adapter.setActivityAndVersionItems(filter, nextcloudClient, clear);
 
         if (adapter.getItemCount() == 0) {
             setEmptyContent(

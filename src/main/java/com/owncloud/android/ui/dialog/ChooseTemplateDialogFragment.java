@@ -39,6 +39,7 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nextcloud.android.lib.resources.directediting.DirectEditingCreateFileRemoteOperation;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainListOfTemplatesRemoteOperation;
@@ -210,16 +211,20 @@ public class ChooseTemplateDialogFragment extends DialogFragment implements Dial
     @Override
     public void onClick(Template template) {
         String name = fileName.getText().toString();
-        if (parentFolder!=null) {
-            String path = parentFolder.getRemotePath() + name;
+        if (template!=null) {
+            if (parentFolder != null) {
+                String path = parentFolder.getRemotePath() + name;
 
-            if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
-                DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
-            } else if (!name.endsWith(template.getExtension())) {
-                createFromTemplate(template, path + DOT + template.getExtension());
-            } else {
-                createFromTemplate(template, path);
+                if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
+                    DisplayUtils.showSnackMessage(listView, R.string.enter_filename);
+                } else if (!name.endsWith(template.getExtension())) {
+                    createFromTemplate(template, path + DOT + template.getExtension());
+                } else {
+                    createFromTemplate(template, path);
+                }
             }
+        }else {
+            Toast.makeText(getContext(),"模板文件不能为空",Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -736,6 +736,7 @@
     <string name="unread_comments">有未读评论</string>
     <string name="unset_encrypted">不设置加密</string>
     <string name="unset_favorite">从收藏列表移除</string>
+    <string name="file_detail_comment">评论</string>
     <string name="unshare">取消共享</string>
     <string name="unshare_link_file_error">尝试取消共享此文件或文件夹时发生错误。</string>
     <string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在。</string>

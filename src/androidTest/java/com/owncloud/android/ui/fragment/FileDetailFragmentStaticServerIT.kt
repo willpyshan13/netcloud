@@ -46,7 +46,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @ScreenshotTest
     fun showFileDetailActivitiesFragment() {
         val sut = testActivityRule.launchActivity(null)
-        sut.addFragment(FileDetailActivitiesFragment.newInstance(file, user))
+        sut.addFragment(FileDetailActivitiesFragment.newInstance(file, user,true))
 
         waitForIdleSync()
         screenshot(sut)

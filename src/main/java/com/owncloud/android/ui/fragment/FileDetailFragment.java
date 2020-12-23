@@ -165,6 +165,16 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         return ((FileDetailTabAdapter) binding.pager.getAdapter()).getFileDetailActivitiesFragment();
     }
 
+    /**
+     * return the reference to the file detail activity fragment to communicate with it.
+     *
+     * @return reference to the {@link FileDetailActivitiesFragment}
+     */
+    public FileDetailActivitiesFragment getFileDetailCommentFragment() {
+        return ((FileDetailTabAdapter) binding.pager.getAdapter()).getFileDetailCommentFragment();
+    }
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -228,6 +238,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         binding.tabLayout.removeAllTabs();
 
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.file_detail_comment));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title));
 
         binding.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -250,8 +261,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             public void onTabSelected(TabLayout.Tab tab) {
                 binding.pager.setCurrentItem(tab.getPosition());
 
-                if (tab.getPosition() == 0) {
-                    FileDetailActivitiesFragment fragment = getFileDetailActivitiesFragment();
+                if (tab.getPosition() == 1) {
+                    FileDetailActivitiesFragment fragment = getFileDetailCommentFragment();
 
                     if (fragment != null) {
                         fragment.markCommentsAsRead();
