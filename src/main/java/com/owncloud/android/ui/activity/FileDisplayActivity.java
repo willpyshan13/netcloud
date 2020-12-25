@@ -305,7 +305,9 @@ public class FileDisplayActivity extends FileActivity
         mPlayerConnection = new PlayerServiceConnection(this);
 
         if (getIntent().getBooleanExtra("Main", false) || isTaskRoot()) {
+            registerFabListener();
             binding.bottomContainer.setVisibility(View.VISIBLE);
+            ThemeUtils.colorFloatingActionButton(binding.fabMain, this);
             bottomNavigationManager = new BottomNavigationManager(binding.pagerBottomTab, R.menu.main_navigation);
             bottomNavigationManager.setOnNavigationListener((menuItem, reselect) -> {
                 if (!reselect) {
@@ -313,24 +315,36 @@ public class FileDisplayActivity extends FileActivity
                         case R.id.nav_all_files:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.homeFragment);
                             setupHomeSearchToolbar();
+                            if (fileDisplayPage.homeFragment.showAddBtn()){
+                                binding.fabMain.setVisibility(View.VISIBLE);
+                            }else {
+                                binding.fabMain.setVisibility(View.GONE);
+                            }
                             break;
                         case R.id.nav_favorites:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.favFragment);
                             showSortListGroup(false);
                             setupToolbar();
                             hideRootLogo();
+                            binding.fabMain.setVisibility(View.VISIBLE);
                             break;
                         case R.id.nav_shared:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.sharedFragment);
                             showSortListGroup(false);
                             setupToolbar();
                             hideRootLogo();
+                            if (!fileDisplayPage.sharedFragment.isRoot()){
+                                binding.fabMain.setVisibility(View.VISIBLE);
+                            }else {
+                                binding.fabMain.setVisibility(View.GONE);
+                            }
                             break;
                         case R.id.nav_more:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.moreFragment);
                             showSortListGroup(false);
                             setupToolbar();
                             hideRootLogo();
+                            binding.fabMain.setVisibility(View.GONE);
                             break;
                     }
                     OCFileListFragment fragment = getListOfFilesFragment();
@@ -2598,6 +2612,35 @@ public class FileDisplayActivity extends FileActivity
                                                                           this);
         fetchRemoteFileTask.execute();
 
+    }
+
+    public void showShareAddBtn(boolean flag){
+        if (fileDisplayPage.homeFragment.isVisible()) {
+            fileDisplayPage.homeFragment.setShowAddBtn(flag);
+        }
+    }
+
+    /**
+     * register listener on FAB.
+     */
+    public void registerFabListener() {
+        FileActivity activity = (FileActivity) getActivity();
+        ThemeUtils.colorFloatingActionButton(binding.fabMain, R.drawable.ic_plus, this);
+        binding.fabMain.setOnClickListener(v -> {
+            if (fileDisplayPage.getCurrentFile() == null) {
+                return;
+            }
+            new OCFileListBottomSheetDialog(activity,
+                                            fileDisplayPage.getCurrentFragment(),
+                                            fileDisplayPage.getCurrentDeviceInfo(),
+                                            accountManager.getUser(),
+                                            fileDisplayPage.getCurrentFile())
+                .show();
+        });
+    }
+
+    public void setFabVisible(boolean flag){
+        binding.fabMain.setVisibility(flag?View.VISIBLE:View.GONE);
     }
 
     private boolean isWifi = false;

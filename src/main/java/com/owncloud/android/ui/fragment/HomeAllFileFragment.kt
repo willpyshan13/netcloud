@@ -15,6 +15,8 @@ import org.parceler.Parcels
 
 class HomeAllFileFragment : Fragment() {
 
+    private var isShowAddButton = false
+
     private var fileFragment: OCFileListFragment? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,18 +58,18 @@ class HomeAllFileFragment : Fragment() {
         fileFragment = fragment
     }
 
-    fun getCurrentFile():OCFile?{
-        return if (fileFragment==null){
+    fun getCurrentFile(): OCFile? {
+        return if (fileFragment == null) {
             null
-        }else{
+        } else {
             fileFragment!!.currentFile
         }
     }
 
-    fun getDevicesInfo():DeviceInfo?{
-        return if (fileFragment==null){
+    fun getDevicesInfo(): DeviceInfo? {
+        return if (fileFragment == null) {
             null
-        }else{
+        } else {
             fileFragment!!.deviceInfo
         }
     }
@@ -93,10 +95,15 @@ class HomeAllFileFragment : Fragment() {
         contentView.visibility = View.VISIBLE
     }
 
-
     fun isRoot(): Boolean {
         return fileFragment == null
     }
 
+    fun setShowAddBtn(flag: Boolean) {
+        isShowAddButton = flag
+    }
 
+    fun showAddBtn(): Boolean {
+        return isShowAddButton
+    }
 }

@@ -89,5 +89,4 @@ class SharedFragment : Fragment() {
     fun isRoot(): Boolean {
         return fileFragment == null
     }
-
 }

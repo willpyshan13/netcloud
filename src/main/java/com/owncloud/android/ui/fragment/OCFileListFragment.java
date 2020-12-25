@@ -212,7 +212,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected SearchEvent searchEvent;
     protected AsyncTask<Void, Void, Boolean> remoteOperationAsyncTask;
     protected String mLimitToMimeType;
-    private AppCompatImageView mFabMain;
 
     private String fileTitle;
 
@@ -254,9 +253,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (getActivity() == null) {
             return;
         }
-
         Intent intent = getActivity().getIntent();
-
+        Log_OC.i(TAG, "onResume");
         if (intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             searchEvent = Parcels.unwrap(intent.getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
             onMessageEvent(searchEvent);
@@ -270,22 +268,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * register listener on FAB.
      */
     public void registerFabListener() {
-        floatingActionButton = getActivity().findViewById(R.id.fab_main);
         if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
-            floatingActionButton.setVisibility(View.GONE);
+            setFabVisible(false);
         } else {
-            floatingActionButton.setVisibility(View.VISIBLE);
+            setFabVisible(true);
         }
 
-        ThemeUtils.colorFloatingActionButton(floatingActionButton, R.drawable.ic_plus, requireActivity());
-        floatingActionButton.setOnClickListener(v -> {
-            new OCFileListBottomSheetDialog((FileActivity) requireActivity(),
-                                            this,
-                                            deviceInfo,
-                                            accountManager.getUser(),
-                                            getCurrentFile())
-                .show();
-        });
+//        ThemeUtils.colorFloatingActionButton(floatingActionButton, R.drawable.ic_plus, requireActivity());
+//        floatingActionButton.setOnClickListener(v -> {
+//            new OCFileListBottomSheetDialog((FileActivity) requireActivity(),
+//                                            this,
+//                                            deviceInfo,
+//                                            accountManager.getUser(),
+//                                            getCurrentFile())
+//                .show();
+//        });
     }
 
     /**
@@ -354,9 +351,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             remoteOperationAsyncTask.cancel(true);
         }
 
-        if (floatingActionButton!=null){
-            floatingActionButton.setVisibility(View.GONE);
-        }
         super.onDetach();
     }
 
@@ -966,7 +960,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (file != null) {
                 int position = mAdapter.getItemPosition(file);
                 if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
-                    floatingActionButton.setVisibility(View.VISIBLE);
+                    setFabVisible(true);
+                    ((FileDisplayActivity)requireActivity()).showShareAddBtn(true);
                 }
                 if (file.isFolder()) {
                     resetHeaderScrollingState();
@@ -1924,22 +1919,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @param visible Desired visibility for the FAB.
      */
     public void setFabVisible(final boolean visible) {
-//        if (mFabMain == null) {
-//            // is not available in FolderPickerActivity
-//            return;
-//        }
-//
-//        if (getActivity() != null) {
-//            getActivity().runOnUiThread(() -> {
-//                if (visible) {
-//                    mFabMain.setVisibility(View.VISIBLE);
-//                } else {
-//                    mFabMain.setVisibility(View.GONE);
-//                }
-//
-//                showFabWithBehavior(visible);
-//            });
-//        }
+        ((FileDisplayActivity)requireActivity()).setFabVisible(visible);
     }
 
     /**on
@@ -1949,44 +1929,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      */
     public void showFabVisible() {
-        if (floatingActionButton == null) {
-            // is not available in FolderPickerActivity
-            return;
-        }
-
         if (getActivity() != null) {
             getActivity().runOnUiThread(() -> {
                 if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
                     if (!mFile.getRemotePath().equals("/")) {
-                        floatingActionButton.setVisibility(View.VISIBLE);
+                        ((FileDisplayActivity)requireActivity()).showShareAddBtn(true);
                     } else {
-                        floatingActionButton.setVisibility(View.GONE);
+                        ((FileDisplayActivity)requireActivity()).showShareAddBtn(false);
                     }
                 }
             });
-        }
-    }
-
-    /**
-     * Remove this, if HideBottomViewOnScrollBehavior is fix by Google
-     *
-     * @param visible
-     */
-    private void showFabWithBehavior(boolean visible) {
-        ViewGroup.LayoutParams layoutParams = mFabMain.getLayoutParams();
-        if (layoutParams instanceof CoordinatorLayout.LayoutParams) {
-            CoordinatorLayout.Behavior coordinatorLayoutBehavior =
-                ((CoordinatorLayout.LayoutParams) layoutParams).getBehavior();
-            if (coordinatorLayoutBehavior instanceof HideBottomViewOnScrollBehavior) {
-                @SuppressWarnings("unchecked")
-                HideBottomViewOnScrollBehavior<FloatingActionButton> behavior =
-                    (HideBottomViewOnScrollBehavior<FloatingActionButton>) coordinatorLayoutBehavior;
-                if (visible) {
-//                    behavior.slideUp(mFabMain);
-                } else {
-//                    behavior.slideDown(mFabMain);
-                }
-            }
         }
     }
 
@@ -1998,22 +1950,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @param enabled Desired visibility for the FAB.
      */
     public void setFabEnabled(final boolean enabled) {
-        if (mFabMain == null) {
-            // is not available in FolderPickerActivity
-            return;
-        }
-
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(() -> {
-                if (enabled) {
-                    mFabMain.setEnabled(true);
-//                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext());
-                } else {
-                    mFabMain.setEnabled(false);
-//                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
-                }
-            });
-        }
+//        if (mFabMain == null) {
+//            // is not available in FolderPickerActivity
+//            return;
+//        }
+//
+//        if (getActivity() != null) {
+//            getActivity().runOnUiThread(() -> {
+//                if (enabled) {
+//                    mFabMain.setEnabled(true);
+////                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext());
+//                } else {
+//                    mFabMain.setEnabled(false);
+////                    ThemeUtils.colorFloatingActionButton(mFabMain, requireContext(), Color.GRAY);
+//                }
+//            });
+//        }
     }
 
     private void resetHeaderScrollingState() {

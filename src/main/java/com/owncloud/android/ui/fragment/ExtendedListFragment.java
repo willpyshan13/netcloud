@@ -122,7 +122,6 @@ public class ExtendedListFragment extends Fragment implements
     protected SwipeRefreshLayout mRefreshListLayout;
     protected MaterialButton mSortButton;
     protected MaterialButton mSwitchGridViewButton;
-    protected FloatingActionButton floatingActionButton;
     protected LinearLayout mEmptyListContainer;
     protected TextView mEmptyListMessage;
     protected TextView mEmptyListHeadline;

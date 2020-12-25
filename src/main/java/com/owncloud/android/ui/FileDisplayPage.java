@@ -2,8 +2,10 @@ package com.owncloud.android.ui;
 
 import android.os.Bundle;
 
+import com.nextcloud.client.device.DeviceInfo;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.events.SearchEvent;
@@ -75,5 +77,44 @@ public class FileDisplayPage {
 
     public boolean isShow(Fragment fragment) {
         return fragment.isAdded() && !fragment.isHidden();
+    }
+
+    public OCFile getCurrentFile(){
+        if (homeFragment.isVisible()&&!homeFragment.isRoot()){
+            return homeFragment.getCurrentFile();
+        }
+        if (favFragment.isVisible()){
+            return favFragment.getCurrentFile();
+        }
+        if (sharedFragment.isVisible()&&!sharedFragment.isRoot()){
+            return sharedFragment.getListOfFilesFragment().getCurrentFile();
+        }
+        return null;
+    }
+
+    public OCFileListFragment getCurrentFragment(){
+        if (homeFragment.isVisible()&&!homeFragment.isRoot()){
+            return homeFragment.getListOfFilesFragment();
+        }
+        if (favFragment.isVisible()){
+            return favFragment;
+        }
+        if (sharedFragment.isVisible()&&!sharedFragment.isRoot()){
+            return sharedFragment.getListOfFilesFragment();
+        }
+        return null;
+    }
+
+    public DeviceInfo getCurrentDeviceInfo(){
+        if (homeFragment.isVisible()&&!homeFragment.isRoot()){
+            return homeFragment.getDevicesInfo();
+        }
+        if (favFragment.isVisible()){
+            return favFragment.deviceInfo;
+        }
+        if (sharedFragment.isVisible()&&!sharedFragment.isRoot()){
+            return sharedFragment.getListOfFilesFragment().deviceInfo;
+        }
+        return null;
     }
 }
