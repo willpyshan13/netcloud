@@ -268,25 +268,24 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * register listener on FAB.
      */
     public void registerFabListener() {
-        if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC
-            || searchEvent.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH
-            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_MINE
-            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_LINK
-            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE) {
-            setFabVisible(false);
+        if (searchEvent != null) {
+            if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC
+                || searchEvent.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH
+                || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_MINE
+                || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_LINK
+                || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE) {
+                setFabVisible(false);
+            } else {
+                setFabVisible(true);
+            }
         } else {
-            setFabVisible(true);
+            if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
+                setFabVisible(false);
+            } else {
+                ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
+                setFabVisible(true);
+            }
         }
-
-//        ThemeUtils.colorFloatingActionButton(floatingActionButton, R.drawable.ic_plus, requireActivity());
-//        floatingActionButton.setOnClickListener(v -> {
-//            new OCFileListBottomSheetDialog((FileActivity) requireActivity(),
-//                                            this,
-//                                            deviceInfo,
-//                                            accountManager.getUser(),
-//                                            getCurrentFile())
-//                .show();
-//        });
     }
 
     /**
@@ -966,11 +965,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                 if (file.isFolder()) {
                     resetHeaderScrollingState();
-                    if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC||
-                        searchEvent.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH) {
-                        setFabVisible(true);
-                        ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
+                    if (searchEvent != null) {
+                        if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC
+                            || searchEvent.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH
+                            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_MINE
+                            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_LINK
+                            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE) {
+                            setFabVisible(true);
+                            ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
+                        }
+                    } else {
+                        if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
+                            setFabVisible(true);
+                            ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
+                        }
                     }
+
                     ((FileDisplayActivity) requireActivity()).onFolderClick();
 
                     if (file.isEncrypted()) {

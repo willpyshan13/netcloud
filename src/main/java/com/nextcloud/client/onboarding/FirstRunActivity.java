@@ -234,7 +234,7 @@ public class FirstRunActivity extends BaseActivity implements ViewPager.OnPageCh
 
     public static FeatureItem[] getFirstRun() {
         return new FeatureItem[]{
-            new FeatureItem(R.drawable.logo, R.string.first_run_1_text, R.string.empty, true, false),
+            new FeatureItem(R.drawable.ic_qiji_logo, R.string.first_run_1_text, R.string.empty, true, false),
             new FeatureItem(R.drawable.first_run_files, R.string.first_run_2_text, R.string.empty, true, false),
             new FeatureItem(R.drawable.first_run_groupware, R.string.first_run_3_text, R.string.empty, true, false),
             new FeatureItem(R.drawable.first_run_talk, R.string.first_run_4_text, R.string.empty, true, false)};
