@@ -268,7 +268,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * register listener on FAB.
      */
     public void registerFabListener() {
-        if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
+        if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC
+            || searchEvent.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH
+            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_MINE
+            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_LINK
+            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE) {
             setFabVisible(false);
         } else {
             setFabVisible(true);
@@ -959,12 +963,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             if (file != null) {
                 int position = mAdapter.getItemPosition(file);
-                if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
-                    setFabVisible(true);
-                    ((FileDisplayActivity)requireActivity()).showShareAddBtn(true);
-                }
+
                 if (file.isFolder()) {
                     resetHeaderScrollingState();
+                    if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC||
+                        searchEvent.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH) {
+                        setFabVisible(true);
+                        ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
+                    }
+                    ((FileDisplayActivity) requireActivity()).onFolderClick();
 
                     if (file.isEncrypted()) {
                         User user = ((FileActivity) mContainerActivity).getUser().orElseThrow(RuntimeException::new);
@@ -1919,23 +1926,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @param visible Desired visibility for the FAB.
      */
     public void setFabVisible(final boolean visible) {
-        ((FileDisplayActivity)requireActivity()).setFabVisible(visible);
+        ((FileDisplayActivity) requireActivity()).setFabVisible(visible);
     }
 
-    /**on
-     * Sets the 'visibility' state of the FAB contained in the fragment.
+    /**
+     * on Sets the 'visibility' state of the FAB contained in the fragment.
      * <p>
      * When 'false' is set, FAB visibility is set to View.GONE programmatically.
-     *
      */
     public void showFabVisible() {
         if (getActivity() != null) {
             getActivity().runOnUiThread(() -> {
                 if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
                     if (!mFile.getRemotePath().equals("/")) {
-                        ((FileDisplayActivity)requireActivity()).showShareAddBtn(true);
+                        ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
                     } else {
-                        ((FileDisplayActivity)requireActivity()).showShareAddBtn(false);
+                        ((FileDisplayActivity) requireActivity()).showShareAddBtn(false);
                     }
                 }
             });

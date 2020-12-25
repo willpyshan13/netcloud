@@ -300,7 +300,7 @@ public class FileDisplayActivity extends FileActivity
         //add net broadcast
         IntentFilter filter = new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(netReceiver,filter);
+        registerReceiver(netReceiver, filter);
 
         mPlayerConnection = new PlayerServiceConnection(this);
 
@@ -315,9 +315,9 @@ public class FileDisplayActivity extends FileActivity
                         case R.id.nav_all_files:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.homeFragment);
                             setupHomeSearchToolbar();
-                            if (fileDisplayPage.homeFragment.showAddBtn()){
+                            if (fileDisplayPage.homeFragment.showAddBtn()) {
                                 binding.fabMain.setVisibility(View.VISIBLE);
-                            }else {
+                            } else {
                                 binding.fabMain.setVisibility(View.GONE);
                             }
                             break;
@@ -326,16 +326,20 @@ public class FileDisplayActivity extends FileActivity
                             showSortListGroup(false);
                             setupToolbar();
                             hideRootLogo();
-                            binding.fabMain.setVisibility(View.VISIBLE);
+                            if (fileDisplayPage.isShowFavAddBtn()) {
+                                binding.fabMain.setVisibility(View.VISIBLE);
+                            } else {
+                                binding.fabMain.setVisibility(View.GONE);
+                            }
                             break;
                         case R.id.nav_shared:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.sharedFragment);
                             showSortListGroup(false);
                             setupToolbar();
                             hideRootLogo();
-                            if (!fileDisplayPage.sharedFragment.isRoot()){
+                            if (fileDisplayPage.sharedFragment.showAddBtn()) {
                                 binding.fabMain.setVisibility(View.VISIBLE);
-                            }else {
+                            } else {
                                 binding.fabMain.setVisibility(View.GONE);
                             }
                             break;
@@ -1191,6 +1195,7 @@ public class FileDisplayActivity extends FileActivity
                 }
                 setFile(listOfFiles.getCurrentFile());
                 listOfFiles.showFabVisible();
+                onHandlerBack();
                 showSortListGroup(true);
                 cleanSecondFragment();
             }
@@ -2614,7 +2619,37 @@ public class FileDisplayActivity extends FileActivity
 
     }
 
-    public void showShareAddBtn(boolean flag){
+    public void onFolderClick() {
+        if (fileDisplayPage.favFragment.isVisible()) {
+            fileDisplayPage.setShowFavAddBtn(true);
+        }
+
+        if (fileDisplayPage.sharedFragment.isVisible()) {
+            fileDisplayPage.sharedFragment.setShowAddBtn(true);
+        }
+    }
+
+    public void onHandlerBack() {
+        if (fileDisplayPage.favFragment.isVisible()) {
+            if (fileDisplayPage.favFragment.getCurrentFile() != null &&
+                !fileDisplayPage.favFragment.getCurrentFile().getRemotePath().equals("/")) {
+                fileDisplayPage.setShowFavAddBtn(true);
+            } else {
+                fileDisplayPage.setShowFavAddBtn(false);
+            }
+        }
+
+        if (fileDisplayPage.sharedFragment.isVisible()) {
+            if (fileDisplayPage.sharedFragment.getListOfFilesFragment().getCurrentFile() != null &&
+                !fileDisplayPage.sharedFragment.getListOfFilesFragment().getCurrentFile().getRemotePath().equals("/")) {
+                fileDisplayPage.sharedFragment.setShowAddBtn(true);
+            } else {
+                fileDisplayPage.sharedFragment.setShowAddBtn(false);
+            }
+        }
+    }
+
+    public void showShareAddBtn(boolean flag) {
         if (fileDisplayPage.homeFragment.isVisible()) {
             fileDisplayPage.homeFragment.setShowAddBtn(flag);
         }
@@ -2639,8 +2674,8 @@ public class FileDisplayActivity extends FileActivity
         });
     }
 
-    public void setFabVisible(boolean flag){
-        binding.fabMain.setVisibility(flag?View.VISIBLE:View.GONE);
+    public void setFabVisible(boolean flag) {
+        binding.fabMain.setVisibility(flag ? View.VISIBLE : View.GONE);
     }
 
     private boolean isWifi = false;
@@ -2648,11 +2683,11 @@ public class FileDisplayActivity extends FileActivity
     public void updateBaseUrl(boolean isWifi) {
         //todo 如果是处于非wifi情况，使用  AccountUtils.Constants.KEY_OC_BASE_URL
         if (!isWifi) {
-            if (accountManager.getCurrentAccount()!=null) {
+            if (accountManager.getCurrentAccount() != null) {
                 String baseUrl =
                     AccountManager.get(FileDisplayActivity.this).getUserData(accountManager.getCurrentAccount(),
                                                                              AccountUtils.Constants.KEY_OC_BASE_URL_OUT);
-                Log_OC.i(TAG, "updateBaseUrl baseUrl= "+baseUrl);
+                Log_OC.i(TAG, "updateBaseUrl baseUrl= " + baseUrl);
                 AccountManager.get(FileDisplayActivity.this)
                     .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
             }
@@ -2665,7 +2700,7 @@ public class FileDisplayActivity extends FileActivity
                         BaseUrlRemoteOperation getStatus = new BaseUrlRemoteOperation(FileDisplayActivity.this, new BaseUrlRemoteOperation.OnBaseUrlChange() {
                             @Override
                             public void onBaseUrlChange(String baseUrl) {
-                                Log_OC.i(TAG, "onBaseUrlChange url= " +baseUrl );
+                                Log_OC.i(TAG, "onBaseUrlChange url= " + baseUrl);
                                 AccountManager.get(FileDisplayActivity.this)
                                     .setUserData(accountManager.getCurrentAccount(), AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl);
                             }
@@ -2687,17 +2722,19 @@ public class FileDisplayActivity extends FileActivity
      * 校验网络状态
      */
     private void getAPNType() {
-        if (isWifiConnect()){
+        if (isWifiConnect()) {
             updateBaseUrl(true);
-        }else {
+        } else {
             updateBaseUrl(false);
         }
     }
 
-    private boolean isWifiConnect(){
+    private boolean isWifiConnect() {
         ConnectivityManager cm =
             (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm == null) return false;
+        if (cm == null) {
+            return false;
+        }
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.getType() == ConnectivityManager.TYPE_WIFI;
     }
@@ -2725,7 +2762,7 @@ public class FileDisplayActivity extends FileActivity
                     // Not connected, stop open, set last connected network to no network
                     lastConnectedNetwork = null;
                     updateBaseUrl(false);
-                    Log.d(TAG,"Disconnected from the network");
+                    Log.d(TAG, "Disconnected from the network");
                 }
             }
         }

@@ -27,6 +27,7 @@ public class FileDisplayPage {
     public MoreFragment moreFragment = new MoreFragment();
     public Fragment currentFragment;
 
+    public boolean showFavAddBtn = false;
     public FileDisplayPage() {
         Bundle args = new Bundle();
         args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
@@ -35,6 +36,7 @@ public class FileDisplayPage {
         SearchEvent favSearchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
         Bundle favBundle = new Bundle();
         favBundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(favSearchEvent));
+        favBundle.putBoolean(OCFileListFragment.ARG_HIDE_FAB, true);
         favFragment.setArguments(favBundle);
     }
 
@@ -113,8 +115,19 @@ public class FileDisplayPage {
             return favFragment.deviceInfo;
         }
         if (sharedFragment.isVisible()&&!sharedFragment.isRoot()){
-            return sharedFragment.getListOfFilesFragment().deviceInfo;
+            if (sharedFragment.getListOfFilesFragment()!=null){
+                return sharedFragment.getListOfFilesFragment().deviceInfo;
+            }
+            return null;
         }
         return null;
+    }
+
+    public boolean isShowFavAddBtn() {
+        return showFavAddBtn;
+    }
+
+    public void setShowFavAddBtn(boolean showFavAddBtn) {
+        this.showFavAddBtn = showFavAddBtn;
     }
 }

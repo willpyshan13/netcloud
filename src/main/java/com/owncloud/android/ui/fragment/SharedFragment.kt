@@ -17,6 +17,8 @@ import org.parceler.Parcels
 
 class SharedFragment : Fragment() {
 
+    private var isShowAddButton = false
+
     private var fileFragment: Fragment? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -66,6 +68,7 @@ class SharedFragment : Fragment() {
         searchEvent?.apply {
             bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent))
         }
+        bundle.putBoolean(OCFileListFragment.ARG_HIDE_FAB, true)
         val fragment = OCFileListFragment()
         fragment.arguments = bundle
         childFragmentManager.beginTransaction()
@@ -88,5 +91,13 @@ class SharedFragment : Fragment() {
 
     fun isRoot(): Boolean {
         return fileFragment == null
+    }
+
+    fun setShowAddBtn(flag: Boolean) {
+        isShowAddButton = flag
+    }
+
+    fun showAddBtn(): Boolean {
+        return isShowAddButton
     }
 }
