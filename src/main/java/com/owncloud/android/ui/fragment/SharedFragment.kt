@@ -17,6 +17,8 @@ import org.parceler.Parcels
 
 class SharedFragment : Fragment() {
 
+    private var pageTitle = "/"
+
     private var isShowAddButton = false
 
     private var fileFragment: Fragment? = null
@@ -31,16 +33,19 @@ class SharedFragment : Fragment() {
 
         nav_shared_to_me.setOnClickListener {
             MainApp.showOnlyFilesOnDevice(false)
+            pageTitle = view.context.getString(R.string.etm_shared_to_mine)
             showFiles(SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE))
         }
 
         nav_mine_shared.setOnClickListener {
             MainApp.showOnlyFilesOnDevice(false)
+            pageTitle = view.context.getString(R.string.etm_shared_mine)
             showFiles(SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER_MINE))
         }
 
         nav_shared_link.setOnClickListener {
             MainApp.showOnlyFilesOnDevice(false)
+            pageTitle = view.context.getString(R.string.etm_shared_link)
             showFiles(SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER_LINK))
         }
 
@@ -88,6 +93,20 @@ class SharedFragment : Fragment() {
         contentView.visibility = View.VISIBLE
     }
 
+    /**
+     *
+     * Desc:显示第二标题
+     * <p>
+     * Author: pengyushan
+     * Date: 2020-12-27
+     */
+    fun needShowSecondTitle(): Boolean {
+        return !isRoot() && getListOfFilesFragment() != null && getListOfFilesFragment()!!.currentFile == null
+    }
+
+    fun getPageTitle(): String {
+        return pageTitle
+    }
 
     fun isRoot(): Boolean {
         return fileFragment == null

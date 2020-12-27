@@ -15,6 +15,8 @@ import org.parceler.Parcels
 
 class HomeAllFileFragment : Fragment() {
 
+    private var pageTitle = "/"
+
     private var isShowAddButton = false
 
     private var fileFragment: OCFileListFragment? = null
@@ -28,14 +30,17 @@ class HomeAllFileFragment : Fragment() {
         val activity = activity as FileDisplayActivity
 
         nav_mine_zone.setOnClickListener {
+            pageTitle = view.context.getString(R.string.etm_mine_zone)
             showFiles(null, nav_mine_zone_text.text.toString(), OCFileListFragment.FOLDER_TYPE_MINE_ZONE)
         }
 
         nav_group_zone.setOnClickListener {
+            pageTitle = view.context.getString(R.string.etm_group_zone)
             showFiles(null, nav_group_zone_text.text.toString(), OCFileListFragment.FOLDER_TYPE_GROUP)
         }
 
         nav_shared_zone.setOnClickListener {
+            pageTitle = view.context.getString(R.string.etm_shared_zone)
             showFiles(null, nav_shared_zone_text.text.toString(), OCFileListFragment.FOLDER_TYPE_PUBLIC)
         }
         (activity as? FileDisplayActivity)?.setupHomeSearchToolbar()
@@ -56,6 +61,7 @@ class HomeAllFileFragment : Fragment() {
             .commit()
         contentView.visibility = View.GONE
         fileFragment = fragment
+        (activity as? FileDisplayActivity)?.setupToolbar()
     }
 
     fun getCurrentFile(): OCFile? {
@@ -93,6 +99,23 @@ class HomeAllFileFragment : Fragment() {
         }
         fileFragment = null
         contentView.visibility = View.VISIBLE
+        pageTitle = "/"
+        (activity as? FileDisplayActivity)?.setupHomeSearchToolbar()
+    }
+
+    /**
+     *
+     * Desc:显示第二标题
+     * <p>
+     * Author: pengyushan
+     * Date: 2020-12-27
+     */
+    fun needShowSecondTitle():Boolean{
+        return !isRoot() && getCurrentFile()!=null && getCurrentFile()!!.remotePath == "/"
+    }
+
+    fun getPageTitle(): String {
+        return pageTitle
     }
 
     fun isRoot(): Boolean {

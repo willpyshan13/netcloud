@@ -1171,6 +1171,7 @@ public class FileDisplayActivity extends FileActivity
                             if (!((MoreFragment) fileDisplayPage.currentFragment).isRoot()) {
                                 ((MoreFragment) fileDisplayPage.currentFragment).removeFiles();
                                 updateActionBarTitleAndHomeButton(null);
+                                binding.fabMain.setVisibility(View.GONE);
                                 return;
                             }
                         }
@@ -1178,6 +1179,7 @@ public class FileDisplayActivity extends FileActivity
                             if (!((SharedFragment) fileDisplayPage.currentFragment).isRoot()) {
                                 ((SharedFragment) fileDisplayPage.currentFragment).removeFiles();
                                 updateActionBarTitleAndHomeButton(null);
+                                binding.fabMain.setVisibility(View.GONE);
                                 return;
                             }
                         }
@@ -1185,6 +1187,7 @@ public class FileDisplayActivity extends FileActivity
                             if (!((HomeAllFileFragment) fileDisplayPage.currentFragment).isRoot()) {
                                 ((HomeAllFileFragment) fileDisplayPage.currentFragment).removeFiles();
                                 updateActionBarTitleAndHomeButton(null);
+                                binding.fabMain.setVisibility(View.GONE);
                                 return;
                             }
                         }
@@ -1717,7 +1720,19 @@ public class FileDisplayActivity extends FileActivity
             // in dual pane mode, keep the focus of title an action bar in the current folder
             super.updateActionBarTitleAndHomeButton(getCurrentDir());
         } else {
-            super.updateActionBarTitleAndHomeButton(chosenFile);
+            if (fileDisplayPage.currentFragment != null) {
+                if (fileDisplayPage.currentFragment instanceof HomeAllFileFragment &&
+                    ((HomeAllFileFragment) fileDisplayPage.currentFragment).needShowSecondTitle()) {
+                    super.updateActionBarTitleAndHomeButtonByString(((HomeAllFileFragment) fileDisplayPage.currentFragment).getPageTitle());
+                }else if (fileDisplayPage.currentFragment instanceof SharedFragment &&
+                    ((SharedFragment) fileDisplayPage.currentFragment).needShowSecondTitle()) {
+                    super.updateActionBarTitleAndHomeButtonByString(((SharedFragment) fileDisplayPage.currentFragment).getPageTitle());
+                }else {
+                    super.updateActionBarTitleAndHomeButton(chosenFile);
+                }
+            }else {
+                super.updateActionBarTitleAndHomeButton(chosenFile);
+            }
         }
     }
 
