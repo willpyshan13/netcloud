@@ -424,17 +424,22 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     @VisibleForTesting
     public void setErrorContent(String message) {
-        binding.emptyList.emptyListViewHeadline.setText(R.string.common_error);
-        binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
-                                                                                     R.drawable.ic_list_empty_error,
-                                                                                     null));
-        binding.emptyList.emptyListViewText.setText(message);
+        try {
+            binding.emptyList.emptyListViewHeadline.setText(R.string.common_error);
+            binding.emptyList.emptyListIcon.setImageDrawable(ResourcesCompat.getDrawable(requireContext().getResources(),
+                                                                                         R.drawable.ic_list_empty_error,
+                                                                                         null));
+            binding.emptyList.emptyListViewText.setText(message);
+            binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
+            binding.emptyList.emptyListProgress.setVisibility(View.GONE);
+            binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
+            binding.swipeContainingList.setVisibility(View.GONE);
+            binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
+        }catch (Exception e){
+            Log_OC.d("",e.getMessage());
+        }
 
-        binding.emptyList.emptyListViewText.setVisibility(View.VISIBLE);
-        binding.emptyList.emptyListProgress.setVisibility(View.GONE);
-        binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
-        binding.swipeContainingList.setVisibility(View.GONE);
-        binding.swipeContainingEmpty.setVisibility(View.VISIBLE);
+
     }
 
     private void hideRefreshLayoutLoader(FragmentActivity activity) {
