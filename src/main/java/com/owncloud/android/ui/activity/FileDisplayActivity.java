@@ -1726,6 +1726,7 @@ public class FileDisplayActivity extends FileActivity
                     super.updateActionBarTitleAndHomeButtonByString(((HomeAllFileFragment) fileDisplayPage.currentFragment).getPageTitle());
                 }else if (fileDisplayPage.currentFragment instanceof SharedFragment &&
                     ((SharedFragment) fileDisplayPage.currentFragment).needShowSecondTitle()) {
+                    super.showHomeSearch(false);
                     super.updateActionBarTitleAndHomeButtonByString(((SharedFragment) fileDisplayPage.currentFragment).getPageTitle());
                 }else {
                     super.updateActionBarTitleAndHomeButton(chosenFile);
