@@ -1199,7 +1199,9 @@ public class FileDisplayActivity extends FileActivity
                 setFile(listOfFiles.getCurrentFile());
                 listOfFiles.showFabVisible();
                 onHandlerBack();
-                showSortListGroup(true);
+                if (!(fileDisplayPage.currentFragment instanceof OCFileListFragment)) {
+                    showSortListGroup(true);
+                }
                 cleanSecondFragment();
             }
         } else if (leftFragment instanceof PreviewTextStringFragment) {
@@ -1230,7 +1232,7 @@ public class FileDisplayActivity extends FileActivity
         Log_OC.v(TAG, "onSaveInstanceState() end");
     }
 
-    public void bindOcFileListFragment(){
+    public void bindOcFileListFragment() {
         Log_OC.v(TAG, "bindOcFileListFragment() start");
         // Instead of onPostCreate, starting the loading in onResume for children fragments
         Fragment leftFragment = getLeftFragment();
@@ -1728,14 +1730,14 @@ public class FileDisplayActivity extends FileActivity
                 if (fileDisplayPage.currentFragment instanceof HomeAllFileFragment &&
                     ((HomeAllFileFragment) fileDisplayPage.currentFragment).needShowSecondTitle()) {
                     super.updateActionBarTitleAndHomeButtonByString(((HomeAllFileFragment) fileDisplayPage.currentFragment).getPageTitle());
-                }else if (fileDisplayPage.currentFragment instanceof SharedFragment &&
+                } else if (fileDisplayPage.currentFragment instanceof SharedFragment &&
                     ((SharedFragment) fileDisplayPage.currentFragment).needShowSecondTitle()) {
                     super.showHomeSearch(false);
                     super.updateActionBarTitleAndHomeButtonByString(((SharedFragment) fileDisplayPage.currentFragment).getPageTitle());
-                }else {
+                } else {
                     super.updateActionBarTitleAndHomeButton(chosenFile);
                 }
-            }else {
+            } else {
                 super.updateActionBarTitleAndHomeButton(chosenFile);
             }
         }

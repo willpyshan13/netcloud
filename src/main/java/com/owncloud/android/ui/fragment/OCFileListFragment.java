@@ -876,6 +876,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 parentPath = new File(mFile.getRemotePath()).getParent();
                 if (isFavoriteType()){
                     onMessageEvent(searchEvent);
+                    listDirectory(MainApp.isOnlyOnDevice(), false);
                 }else if (isShareType() && parentPath.equals("/")) {
                     onMessageEvent(searchEvent);
                     listDirectory(MainApp.isOnlyOnDevice(), false);
@@ -888,7 +889,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 parentDir = storageManager.getFileByPath(ROOT_PATH);
             }
 
-            if (isShareType()) {
+            if (isFavoriteType()){
+                if (parentDir == null) {
+                    parentDir = storageManager.getFileByPath(ROOT_PATH);
+                    moveCount++;
+                }
+            }else if (isShareType()) {
                 if (parentDir == null) {
                     parentDir = storageManager.getFileByPath(ROOT_PATH);
                     moveCount++;

@@ -296,7 +296,7 @@
     <string name="file_list_empty_favorite_headline">暂无收藏</string>
     <string name="file_list_empty_favorites_filter">搜索结果中没有你收藏的文件。</string>
     <string name="file_list_empty_favorites_filter_list">您收藏的文件和文件夹将在这里显示。</string>
-    <string name="file_list_empty_headline">这里没有文件</string>
+    <string name="file_list_empty_headline">正在加载...</string>
     <string name="file_list_empty_headline_search">这个文件夹没有结果</string>
     <string name="file_list_empty_headline_server_search">没有结果</string>
     <string name="file_list_empty_headline_server_search_photos">没有照片</string>
