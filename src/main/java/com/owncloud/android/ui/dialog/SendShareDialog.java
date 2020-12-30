@@ -269,7 +269,7 @@ public class SendShareDialog extends BottomSheetDialogFragment {
 
     private void shareFile(OCFile file) {
         if (getActivity() instanceof FileDisplayActivity) {
-            ((FileDisplayActivity) getActivity()).showDetails(file, 1);
+            ((FileDisplayActivity) getActivity()).showDetails(file, 2);
         } else {
             fileOperationsHelper.showShareFile(file);
         }

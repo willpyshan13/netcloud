@@ -491,7 +491,7 @@ public class FileOperationsHelper {
             FileActivity.copyAndShareFileLink(fileActivity, file, shares.get(0).getShareLink());
         } else {
             if (fileActivity instanceof FileDisplayActivity) {
-                ((FileDisplayActivity) fileActivity).showDetails(file, 1);
+                ((FileDisplayActivity) fileActivity).showDetails(file, 2);
             } else {
                 showShareFile(file);
             }

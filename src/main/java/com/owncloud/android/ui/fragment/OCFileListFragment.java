@@ -137,6 +137,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
+import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.FAVORITE_SEARCH;
 import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.SHARED_FILTER;
 import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.SHARED_FILTER_LINK;
 import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.SHARED_FILTER_MINE;
@@ -278,7 +279,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void registerFabListener() {
         if (searchEvent != null) {
             if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC
-                || searchEvent.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH
+                || searchEvent.searchType == FAVORITE_SEARCH
                 || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_MINE
                 || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_LINK
                 || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE) {
@@ -548,7 +549,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onShareIconClick(OCFile file) {
         if (file.isFolder()) {
-            mContainerActivity.showDetails(file, 1);
+            mContainerActivity.showDetails(file, 2);
         } else {
             mContainerActivity.getFileOperationsHelper().sendShareFile(file);
         }
@@ -556,7 +557,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void showShareDetailView(OCFile file) {
-        mContainerActivity.showDetails(file, 1);
+        mContainerActivity.showDetails(file, 2);
     }
 
     @Override
@@ -873,7 +874,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             String parentPath = null;
             if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
                 parentPath = new File(mFile.getRemotePath()).getParent();
-                if (isShareType() && parentPath.equals("/")) {
+                if (isFavoriteType()){
+                    onMessageEvent(searchEvent);
+                }else if (isShareType() && parentPath.equals("/")) {
                     onMessageEvent(searchEvent);
                     listDirectory(MainApp.isOnlyOnDevice(), false);
                 } else {
@@ -917,6 +920,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return searchEvent != null && (searchEvent.searchType == SHARED_FILTER_MINE ||
             searchEvent.searchType == SHARED_FILTER_TO_MINE ||
             searchEvent.searchType == SHARED_FILTER_LINK);
+    }
+
+    private boolean isFavoriteType(){
+        return searchEvent != null && (searchEvent.searchType == FAVORITE_SEARCH);
     }
 
     /**
@@ -975,7 +982,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     resetHeaderScrollingState();
                     if (searchEvent != null) {
                         if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC
-                            || searchEvent.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH
+                            || searchEvent.searchType == FAVORITE_SEARCH
                             || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_MINE
                             || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_LINK
                             || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE) {
@@ -1881,7 +1888,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE ||
                 event.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_MINE ||
                 event.searchType == SHARED_FILTER_LINK ||
-                event.searchType == SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
+                event.searchType == FAVORITE_SEARCH);
     }
 
     private void syncAndCheckFiles(Collection<OCFile> files) {
