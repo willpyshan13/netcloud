@@ -1230,11 +1230,8 @@ public class FileDisplayActivity extends FileActivity
         Log_OC.v(TAG, "onSaveInstanceState() end");
     }
 
-    @Override
-    protected void onResume() {
-        Log_OC.v(TAG, "onResume() start");
-        super.onResume();
-        getAPNType();
+    public void bindOcFileListFragment(){
+        Log_OC.v(TAG, "bindOcFileListFragment() start");
         // Instead of onPostCreate, starting the loading in onResume for children fragments
         Fragment leftFragment = getLeftFragment();
 
@@ -1309,7 +1306,14 @@ public class FileDisplayActivity extends FileActivity
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
         }
 
-        Log_OC.v(TAG, "onResume() end");
+        Log_OC.v(TAG, "bindOcFileListFragment() end");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAPNType();
+        bindOcFileListFragment();
     }
 
 

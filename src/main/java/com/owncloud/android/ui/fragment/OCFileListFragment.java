@@ -173,6 +173,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public static final String SEARCH_EVENT = "SEARCH_EVENT";
 
+    public static final String REGISTER_SYNC_EVENT = "REGISTER_SYNC_EVENT";
+
     public static final String SEARCH_EVENT_TITLE = "SEARCH_EVENT_TITLE";
 
     public static final String FOLDER_TYPE = "FOLDER_TYPE";
@@ -217,6 +219,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private int folderType;
 
+    private boolean registerSync = false;
+
     public @Inject DeviceInfo deviceInfo;
 
     protected enum MenuItemAddRemove {
@@ -244,6 +248,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (getArguments() != null) {
             fileTitle = getArguments().getString(OCFileListFragment.SEARCH_EVENT_TITLE);
             folderType = getArguments().getInt(OCFileListFragment.FOLDER_TYPE, FOLDER_TYPE_ALL);
+            registerSync = getArguments().getBoolean(OCFileListFragment.REGISTER_SYNC_EVENT,false);
         }
         searchFragment = currentSearchType != null && isSearchEventSet(searchEvent);
     }
@@ -262,6 +267,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         //add pengyushan 20201221 add floating button
         registerFabListener();
         super.onResume();
+        if (registerSync){
+            ((FileDisplayActivity)requireActivity()).bindOcFileListFragment();
+        }
     }
 
     /**
@@ -1613,7 +1621,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
         lastRefreshTime = System.currentTimeMillis();
         prepareCurrentSearch(event);
-        searchFragment = true;
+        if (!registerSync) {
+            searchFragment = true;
+        }
         setEmptyListLoadingMessage();
         mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager(), mFile, true);
 

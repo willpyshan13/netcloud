@@ -53,6 +53,7 @@ class HomeAllFileFragment : Fragment() {
         }
         bundle.putString(OCFileListFragment.SEARCH_EVENT_TITLE, title)
         bundle.putInt(OCFileListFragment.FOLDER_TYPE, folerType)
+        bundle.putBoolean(OCFileListFragment.REGISTER_SYNC_EVENT, true)
 
         val fragment = OCFileListFragment()
         fragment.arguments = bundle
