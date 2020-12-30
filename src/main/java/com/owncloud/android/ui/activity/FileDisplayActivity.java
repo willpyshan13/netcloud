@@ -2175,7 +2175,7 @@ public class FileDisplayActivity extends FileActivity
                                 null
                                                  );
 
-                            OCFileListFragment fragment = getListOfFilesFragment();
+//                            OCFileListFragment fragment = getListOfFilesFragment();
 
 //                            if (fragment != null) {
 //                                fragment.setLoading(true);
