@@ -852,16 +852,17 @@ public class FileDisplayActivity extends FileActivity
 
         searchView.setOnCloseListener(() -> {
             if (TextUtils.isEmpty(searchView.getQuery().toString())) {
-                searchView.onActionViewCollapsed();
-                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                mDrawerToggle.syncState();
-
-                OCFileListFragment ocFileListFragment = getListOfFilesFragment();
-                if (ocFileListFragment != null) {
-                    ocFileListFragment.setSearchFragment(false);
-                    ocFileListFragment.refreshDirectory();
-                }
+//                searchView.onActionViewCollapsed();
+//                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
+//                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//                mDrawerToggle.syncState();
+//
+//                OCFileListFragment ocFileListFragment = getListOfFilesFragment();
+//                if (ocFileListFragment != null) {
+//                    ocFileListFragment.setSearchFragment(false);
+//                    ocFileListFragment.refreshDirectory();
+//                }
+                setupHomeSearchToolbar();
             } else {
                 searchView.post(() -> searchView.setQuery("", true));
             }
