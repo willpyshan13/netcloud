@@ -93,6 +93,7 @@ public class TrashbinActivity extends DrawerActivity implements
         findViewById(R.id.switch_grid_view_button).setVisibility(View.GONE);
         updateActionBarTitleAndHomeButtonByString(getString(R.string.trashbin_activity_title));
         setupDrawer(R.id.nav_trashbin);
+        setDrawerIndicatorEnabled(false);
     }
 
     @Override

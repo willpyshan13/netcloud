@@ -164,7 +164,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         if (ThemeUtils.themingEnabled(this)) {
             setTheme(R.style.FallbackThemingTheme);
         }
-
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
         binding.emptyList.emptyListViewAction.setOnClickListener(v -> showHiddenItems());
     }
 

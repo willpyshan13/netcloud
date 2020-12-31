@@ -139,7 +139,6 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
         setupToolbar();
 
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications));
-
         swipeEmptyListRefreshLayout = findViewById(R.id.swipe_containing_empty);
         swipeListRefreshLayout = findViewById(R.id.swipe_containing_list);
         ThemeUtils.colorSwipeRefreshLayout(this, swipeListRefreshLayout);
@@ -166,6 +165,8 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
         setupPushWarning();
         setupContent();
+        setDrawerIndicatorEnabled(false);
+
     }
 
     private void setupPushWarning() {

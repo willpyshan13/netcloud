@@ -130,11 +130,11 @@ public class UploadListActivity extends FileActivity {
         setupToolbar();
 
         updateActionBarTitleAndHomeButtonByString(getString(R.string.uploads_view_title));
-
         // setup drawer
         setupDrawer(R.id.nav_uploads);
-
         setupContent();
+        setDrawerIndicatorEnabled(false);
+
     }
 
     private void setupContent() {

@@ -210,7 +210,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
             ThemeUtils.tintBackButton(actionBar, this);
         }
-
+        setDrawerIndicatorEnabled(false);
         showToolbarSpinner();
         mToolbarSpinner.setAdapter(mDirectories);
         mToolbarSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
