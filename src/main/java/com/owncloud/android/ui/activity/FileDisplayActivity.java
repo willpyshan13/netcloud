@@ -325,7 +325,6 @@ public class FileDisplayActivity extends FileActivity
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.favFragment);
                             showSortListGroup(false);
                             setupToolbar();
-                            hideRootLogo();
                             if (fileDisplayPage.isShowFavAddBtn()) {
                                 binding.fabMain.setVisibility(View.VISIBLE);
                             } else {
@@ -336,7 +335,6 @@ public class FileDisplayActivity extends FileActivity
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.sharedFragment);
                             showSortListGroup(false);
                             setupToolbar();
-                            hideRootLogo();
                             if (fileDisplayPage.sharedFragment.showAddBtn()) {
                                 binding.fabMain.setVisibility(View.VISIBLE);
                             } else {
@@ -347,7 +345,6 @@ public class FileDisplayActivity extends FileActivity
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.moreFragment);
                             showSortListGroup(false);
                             setupToolbar();
-                            hideRootLogo();
                             binding.fabMain.setVisibility(View.GONE);
                             break;
                     }
@@ -831,6 +828,7 @@ public class FileDisplayActivity extends FileActivity
         searchMenuItem.setVisible(false);
         mSearchText.setOnClickListener(v -> {
             showSearchView();
+            hideRootLogo();
             searchView.setIconified(false);
         });
 

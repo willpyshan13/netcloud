@@ -220,6 +220,18 @@ public abstract class ToolbarActivity extends BaseActivity {
     }
 
     /**
+     * 隐藏logo
+     */
+    public void showRootLogo(){
+        // set & color the chosen title
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar!=null) {
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    /**
      * Updates title bar and home buttons (state and icon).
      */
     public void updateActionBarTitleAndHomeButtonByString(String title) {
