@@ -116,7 +116,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         if (mToolbar.getOverflowIcon() != null) {
             ThemeUtils.tintDrawable(mToolbar.getOverflowIcon(), fontColor);
         }
-
+        mToolbar.setNavigationIcon(R.drawable.ic_home_logo);
         if (mToolbar.getNavigationIcon() != null) {
             ThemeUtils.tintDrawable(mToolbar.getNavigationIcon(), fontColor);
         }

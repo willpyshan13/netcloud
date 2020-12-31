@@ -106,6 +106,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
@@ -230,7 +231,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * initializes and sets up the drawer toggle.
      */
     private void setupDrawerToggle() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.drawer_open, R.string.drawer_close) {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
@@ -253,7 +254,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 supportInvalidateOptionsMenu();
             }
         };
-
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);

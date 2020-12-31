@@ -156,6 +156,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
+import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -852,17 +853,20 @@ public class FileDisplayActivity extends FileActivity
 
         searchView.setOnCloseListener(() -> {
             if (TextUtils.isEmpty(searchView.getQuery().toString())) {
-//                searchView.onActionViewCollapsed();
-//                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
-//                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//                mDrawerToggle.syncState();
-//
-//                OCFileListFragment ocFileListFragment = getListOfFilesFragment();
-//                if (ocFileListFragment != null) {
-//                    ocFileListFragment.setSearchFragment(false);
-//                    ocFileListFragment.refreshDirectory();
-//                }
-                setupHomeSearchToolbar();
+                if (fileDisplayPage.currentFragment instanceof HomeAllFileFragment && ((HomeAllFileFragment) fileDisplayPage.currentFragment).isRoot()){
+                    setupHomeSearchToolbar();
+                }else {
+                    searchView.onActionViewCollapsed();
+                    setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    mDrawerToggle.syncState();
+
+                    OCFileListFragment ocFileListFragment = getListOfFilesFragment();
+                    if (ocFileListFragment != null) {
+                        ocFileListFragment.setSearchFragment(false);
+                        ocFileListFragment.refreshDirectory();
+                    }
+                }
             } else {
                 searchView.post(() -> searchView.setQuery("", true));
             }
@@ -2696,7 +2700,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public void setFabVisible(boolean flag) {
-        binding.fabMain.setVisibility(flag ? View.VISIBLE : View.GONE);
+        runOnUiThread(() -> binding.fabMain.setVisibility(flag ? View.VISIBLE : View.GONE));
     }
 
     private boolean isWifi = false;

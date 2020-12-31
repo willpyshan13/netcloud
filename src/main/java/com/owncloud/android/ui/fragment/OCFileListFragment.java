@@ -1306,10 +1306,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public void refreshDirectory() {
-        searchFragment = false;
-
-        setFabVisible(true);
-        listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
+        if (isFavoriteType()){
+            onMessageEvent(searchEvent);
+            listDirectory(MainApp.isOnlyOnDevice(), false);
+        }else {
+            searchFragment = false;
+            setFabVisible(true);
+            listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
+        }
     }
 
     public void listDirectory(OCFile directory, boolean onlyOnDevice, boolean fromSearch) {
