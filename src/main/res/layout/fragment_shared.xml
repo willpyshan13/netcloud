@@ -4,91 +4,103 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/contentView"
-        android:layout_width="match_parent"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/appbar"
-        android:fitsSystemWindows="true"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/nav_shared_to_me"
+            android:id="@+id/contentView"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginStart="16dp"
-            android:layout_height="60dp">
-            <ImageView
-                android:src="@mipmap/base_icon_share_to_mine"
-                android:scaleType="centerCrop"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+            android:layout_height="wrap_content"
+            android:background="@color/appbar"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/nav_mine_zone_text"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/nav_shared_to_me"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:drawablePadding="12dp"
+                android:layout_marginStart="16dp"
                 android:gravity="center_vertical"
-                android:paddingStart="16dp"
-                android:text="@string/etm_shared_to_mine"
-                android:textSize="16sp" />
+                android:orientation="horizontal">
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/base_icon_share_to_mine" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/nav_mine_shared"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginStart="16dp"
-            android:layout_height="60dp">
-            <ImageView
-                android:src="@mipmap/base_icon_share_to"
-                android:scaleType="centerCrop"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                <TextView
+                    android:id="@+id/nav_mine_zone_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="16dp"
+                    android:text="@string/etm_shared_to_mine"
+                    android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/nav_group_zone_text"
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/nav_mine_shared"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:drawablePadding="12dp"
+                android:layout_marginStart="16dp"
                 android:gravity="center_vertical"
-                android:paddingStart="16dp"
-                android:text="@string/etm_shared_mine"
-                android:textSize="16sp" />
+                android:orientation="horizontal">
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/base_icon_share_to" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/nav_shared_link"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginStart="16dp"
-            android:layout_height="60dp">
-            <ImageView
-                android:src="@mipmap/base_icon_share_link"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                <TextView
+                    android:id="@+id/nav_group_zone_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="16dp"
+                    android:text="@string/etm_shared_mine"
+                    android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/nav_shared_zone_text"
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/nav_shared_link"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:drawablePadding="12dp"
+                android:layout_marginStart="16dp"
                 android:gravity="center_vertical"
-                android:paddingStart="16dp"
-                android:text="@string/etm_shared_link"
-                android:textSize="16sp" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/base_icon_share_link" />
+
+                <TextView
+                    android:id="@+id/nav_shared_zone_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="16dp"
+                    android:text="@string/etm_shared_link"
+                    android:textSize="16sp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 
     <FrameLayout
         android:id="@+id/container"

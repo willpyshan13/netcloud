@@ -26,17 +26,17 @@
         android:checkableBehavior="single">
 
         <item
-            android:icon="@drawable/folder_group"
+            android:icon="@drawable/nav_synced_folders"
             android:id="@+id/nav_mine_zone"
             android:orderInCategory="0"
             android:title="@string/etm_mine_zone" />
         <item
             android:id="@+id/nav_group_zone"
-            android:icon="@drawable/folder_group_yellow"
+            android:icon="@drawable/nav_synced_folders"
             android:title="@string/etm_group_zone" />
         <item
             android:id="@+id/nav_shared_zone"
-            android:icon="@drawable/folder"
+            android:icon="@drawable/nav_synced_folders"
             android:orderInCategory="0"
             android:title="@string/etm_shared_zone"/>
 

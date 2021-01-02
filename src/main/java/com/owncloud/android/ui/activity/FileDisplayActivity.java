@@ -321,6 +321,9 @@ public class FileDisplayActivity extends FileActivity
                             } else {
                                 binding.fabMain.setVisibility(View.GONE);
                             }
+                            if (fileDisplayPage.homeFragment.isRoot()){
+//                                binding.coordinator.
+                            }
                             break;
                         case R.id.nav_favorites:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.favFragment);
