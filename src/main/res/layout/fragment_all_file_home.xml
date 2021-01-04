@@ -35,7 +35,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/base_icon_folder_mine" />
 
                 <TextView
                     android:id="@+id/nav_mine_zone_text"
@@ -61,7 +61,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/base_icon_folder_group" />
 
                 <TextView
                     android:id="@+id/nav_group_zone_text"
@@ -87,7 +87,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/base_icon_folder_public" />
 
                 <TextView
                     android:id="@+id/nav_shared_zone_text"
