@@ -521,16 +521,7 @@ public class SyncedFoldersActivity extends FileActivity implements SyncedFolderA
         boolean result = true;
         switch (item.getItemId()) {
             case android.R.id.home: {
-                if (showSidebar) {
-                    if (isDrawerOpen()) {
-                        closeDrawer();
-                    } else {
-                        openDrawer();
-                    }
-                } else {
-                    Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
-                    startActivity(settingsIntent);
-                }
+                finish();
                 break;
             }
 

@@ -310,11 +310,12 @@ public class NotificationsActivity extends DrawerActivity implements Notificatio
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else {
-                    openDrawer();
-                }
+//                if (isDrawerOpen()) {
+//                    closeDrawer();
+//                } else {
+//                    openDrawer();
+//                }
+                finish();
                 break;
 
             case R.id.action_empty_notifications:

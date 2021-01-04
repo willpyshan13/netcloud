@@ -284,9 +284,10 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         boolean retval = true;
         switch (item.getItemId()) {
             case android.R.id.home: {
-                if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
-                    onBackPressed();
-                }
+//                if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
+//                    onBackPressed();
+//                }
+                finish();
                 break;
             }
             case R.id.action_select_all: {

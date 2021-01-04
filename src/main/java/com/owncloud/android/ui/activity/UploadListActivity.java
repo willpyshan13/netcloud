@@ -249,11 +249,7 @@ public class UploadListActivity extends FileActivity {
         boolean retval = true;
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else {
-                    openDrawer();
-                }
+                finish();
                 break;
             case R.id.action_clear_failed_uploads:
                 uploadsStorageManager.clearFailedButNotDelayedUploads();

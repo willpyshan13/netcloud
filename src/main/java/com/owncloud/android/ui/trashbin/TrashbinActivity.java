@@ -148,13 +148,7 @@ public class TrashbinActivity extends DrawerActivity implements
         boolean retval = true;
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (isDrawerOpen()) {
-                    closeDrawer();
-                } else if (trashbinPresenter.isRoot()) {
-                    onBackPressed();
-                } else {
-                    openDrawer();
-                }
+                finish();
                 break;
 
             case R.id.action_empty_trashbin:

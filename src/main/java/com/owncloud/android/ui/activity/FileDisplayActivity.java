@@ -321,9 +321,6 @@ public class FileDisplayActivity extends FileActivity
                             } else {
                                 binding.fabMain.setVisibility(View.GONE);
                             }
-                            if (fileDisplayPage.homeFragment.isRoot()){
-//                                binding.coordinator.
-                            }
                             break;
                         case R.id.nav_favorites:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.favFragment);
@@ -1184,7 +1181,8 @@ public class FileDisplayActivity extends FileActivity
                         if (fileDisplayPage.currentFragment instanceof SharedFragment) {
                             if (!((SharedFragment) fileDisplayPage.currentFragment).isRoot()) {
                                 ((SharedFragment) fileDisplayPage.currentFragment).removeFiles();
-                                updateActionBarTitleAndHomeButton(null);
+                                showSortListGroup(false);
+                                setupToolbar();
                                 binding.fabMain.setVisibility(View.GONE);
                                 return;
                             }
