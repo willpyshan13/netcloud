@@ -68,7 +68,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                                     User user,
                                     FileDataStorageManager storageManager,
                                     boolean onlyOnDevice,
-                                    AppPreferences preferences) {
+                                    AppPreferences preferences,
+                                    List<OCFile> imageFiles) {
         super(fragmentManager);
         if (parentFolder == null) {
             throw new IllegalArgumentException("NULL parent folder");
@@ -79,7 +80,11 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         this.user = user;
         mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
+        if (imageFiles!=null){
+            mImageFiles = imageFiles;
+        }else {
+            mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
+        }
 
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(parentFolder);
         mImageFiles = sortOrder.sortCloudFiles(mImageFiles);
@@ -101,7 +106,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     public PreviewImagePagerAdapter(FragmentManager fragmentManager,
                                     VirtualFolderType type,
                                     User user,
-                                    FileDataStorageManager storageManager) {
+                                    FileDataStorageManager storageManager,
+                                    List<OCFile> imageFiles) {
         super(fragmentManager);
 
         if (fragmentManager == null) {
@@ -116,8 +122,11 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         this.user = user;
         mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
-
+        if (imageFiles!=null){
+            mImageFiles = imageFiles;
+        }else {
+            mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
+        }
         if (type == VirtualFolderType.GALLERY) {
             mImageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mImageFiles);
         }

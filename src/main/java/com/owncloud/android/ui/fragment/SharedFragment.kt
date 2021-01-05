@@ -74,7 +74,6 @@ class SharedFragment : Fragment() {
             bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent))
         }
         bundle.putBoolean(OCFileListFragment.ARG_HIDE_FAB, true)
-        bundle.putBoolean(OCFileListFragment.REGISTER_SYNC_EVENT, true)
         val fragment = OCFileListFragment()
         fragment.arguments = bundle
         childFragmentManager.beginTransaction()

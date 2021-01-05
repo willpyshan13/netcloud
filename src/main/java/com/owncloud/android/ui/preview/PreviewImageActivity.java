@@ -60,6 +60,8 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.ThemeUtils;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
@@ -94,7 +96,7 @@ public class PreviewImageActivity extends FileActivity implements
     private View mFullScreenAnchorView;
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
-
+    List<OCFile> files;
     public static Intent previewFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
@@ -136,6 +138,8 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     private void initViewPager(User user) {
+        files = getIntent().getParcelableArrayListExtra(FileActivity.EXTRA_FILE_LIST);
+
         // virtual folder
         if (getIntent().getSerializableExtra(EXTRA_VIRTUAL_TYPE) != null) {
             VirtualFolderType type = (VirtualFolderType) getIntent().getSerializableExtra(EXTRA_VIRTUAL_TYPE);
@@ -143,7 +147,7 @@ public class PreviewImageActivity extends FileActivity implements
             mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
                                                                      type,
                                                                      user,
-                                                                     getStorageManager());
+                                                                     getStorageManager(),files);
         } else {
             // get parent from path
             OCFile parentFolder = getStorageManager().getFileById(getFile().getParentId());
@@ -159,12 +163,11 @@ public class PreviewImageActivity extends FileActivity implements
                 user,
                 getStorageManager(),
                 MainApp.isOnlyOnDevice(),
-                preferences
+                preferences,files
             );
         }
 
         mViewPager = findViewById(R.id.fragmentPager);
-
         int position = mHasSavedPosition ? mSavedPosition : mPreviewImagePagerAdapter.getFilePosition(getFile());
         position = position >= 0 ? position : 0;
 

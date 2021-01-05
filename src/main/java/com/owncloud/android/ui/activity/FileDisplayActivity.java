@@ -2255,6 +2255,27 @@ public class FileDisplayActivity extends FileActivity
      *
      * @param file Image {@link OCFile} to show.
      */
+    public void startImagePreview(OCFile file, List<OCFile> files) {
+        ArrayList<OCFile> imageList = new ArrayList<>();
+        for (int i = 0;i< files.size();i++){
+            if (files.get(i).getMimeType().contains("image")){
+                imageList.add(files.get(i));
+            }
+        }
+        Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+        showDetailsIntent.putExtra(EXTRA_FILE, file);
+        showDetailsIntent.putParcelableArrayListExtra(EXTRA_FILE_LIST,imageList);
+        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
+        startActivity(showDetailsIntent);
+
+    }
+
+
+    /**
+     * Opens the image gallery showing the image {@link OCFile} received as parameter.
+     *
+     * @param file Image {@link OCFile} to show.
+     */
     public void startImagePreview(OCFile file, boolean showPreview) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(EXTRA_FILE, file);

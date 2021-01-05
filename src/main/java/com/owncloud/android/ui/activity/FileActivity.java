@@ -120,6 +120,7 @@ public abstract class FileActivity extends DrawerActivity
         LoadingVersionNumberTask.VersionDevInterface {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
+    public static final String EXTRA_FILE_LIST = "com.owncloud.android.ui.activity.FILE_List";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
     public static final String EXTRA_FROM_NOTIFICATION = "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     public static final String APP_OPENED_COUNT = "APP_OPENED_COUNT";

@@ -1070,7 +1070,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 } else if (!mOnlyFoldersClickable) { // Click on a file
                     if (PreviewImageFragment.canBePreviewed(file)) {
                         // preview image - it handles the download, if needed
-                        if (searchFragment) {
+                        if (isShareType()){
+                            ((FileDisplayActivity) mContainerActivity).startImagePreview(file, mAdapter.getFiles());
+                        }else if (searchFragment) {
                             VirtualFolderType type;
                             switch (currentSearchType) {
                                 case FAVORITE_SEARCH:
@@ -1084,7 +1086,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                     break;
                             }
                             ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
-                        } else {
+                        }else {
                             ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
                         }
                     } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
