@@ -160,7 +160,7 @@ android {
                 applicationId "com.qijicloud.client"
                 dimension "default"
                 versionCode 1
-                versionName "1.0.20210105"
+                versionName "1.0.20210106"
             }
         }
 
