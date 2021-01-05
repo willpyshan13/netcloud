@@ -268,8 +268,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         //add pengyushan 20201221 add floating button
         registerFabListener();
         super.onResume();
-        if (registerSync){
-            ((FileDisplayActivity)requireActivity()).bindOcFileListFragment();
+        if (registerSync) {
+            ((FileDisplayActivity) requireActivity()).bindOcFileListFragment();
         }
     }
 
@@ -874,10 +874,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             String parentPath = null;
             if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
                 parentPath = new File(mFile.getRemotePath()).getParent();
-                if (isFavoriteType()){
+                if (isFavoriteType()) {
                     onMessageEvent(searchEvent);
                     listDirectory(MainApp.isOnlyOnDevice(), false);
-                }else if (isShareType() && parentPath.equals("/")) {
+                } else if (isShareType() && parentPath.equals("/")) {
                     onMessageEvent(searchEvent);
                     listDirectory(MainApp.isOnlyOnDevice(), false);
                 } else {
@@ -889,12 +889,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 parentDir = storageManager.getFileByPath(ROOT_PATH);
             }
 
-            if (isFavoriteType()){
+            if (isFavoriteType()) {
                 if (parentDir == null) {
                     parentDir = storageManager.getFileByPath(ROOT_PATH);
                     moveCount++;
                 }
-            }else if (isShareType()) {
+            } else if (isShareType()) {
                 if (parentDir == null) {
                     parentDir = storageManager.getFileByPath(ROOT_PATH);
                     moveCount++;
@@ -928,7 +928,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             searchEvent.searchType == SHARED_FILTER_LINK);
     }
 
-    private boolean isFavoriteType(){
+    private boolean isFavoriteType() {
         return searchEvent != null && (searchEvent.searchType == FAVORITE_SEARCH);
     }
 
@@ -1306,10 +1306,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public void refreshDirectory() {
-        if (isFavoriteType()){
+        if (isFavoriteType()) {
             onMessageEvent(searchEvent);
             listDirectory(MainApp.isOnlyOnDevice(), false);
-        }else {
+        } else {
             searchFragment = false;
             setFabVisible(true);
             listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
@@ -1963,7 +1963,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * @param visible Desired visibility for the FAB.
      */
     public void setFabVisible(final boolean visible) {
-        ((FileDisplayActivity) requireActivity()).setFabVisible(visible);
+        if (requireActivity() instanceof FileDisplayActivity) {
+            ((FileDisplayActivity) requireActivity()).setFabVisible(visible);
+        }
     }
 
     /**
