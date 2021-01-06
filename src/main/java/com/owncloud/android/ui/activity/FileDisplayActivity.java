@@ -812,7 +812,7 @@ public class FileDisplayActivity extends FileActivity
         boolean drawerOpen = isDrawerOpen();
 
         for (MenuItem menuItem : mDrawerMenuItemstoShowHideList) {
-            menuItem.setVisible(!drawerOpen);
+            menuItem.setVisible(!isRoot(getCurrentDir()));
         }
 
         return super.onPrepareOptionsMenu(menu);
@@ -828,9 +828,9 @@ public class FileDisplayActivity extends FileActivity
         searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
         searchMenuItem.setVisible(false);
         mSearchText.setOnClickListener(v -> {
-            showSearchView();
-            hideRootLogo();
-            searchView.setIconified(false);
+//            showSearchView();
+//            hideRootLogo();
+//            searchView.setIconified(false);
         });
 
         ThemeUtils.themeSearchView(searchView, this);
