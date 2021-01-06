@@ -291,7 +291,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
                 setFabVisible(false);
             } else {
-                ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
+                if (requireActivity() instanceof FileDisplayActivity) {
+                    ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
+                }
                 setFabVisible(true);
             }
         }
