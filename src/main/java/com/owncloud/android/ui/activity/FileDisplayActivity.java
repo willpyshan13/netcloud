@@ -1267,7 +1267,7 @@ public class FileDisplayActivity extends FileActivity
         }
 
         // Listen for sync messages
-        if (!ocFileListFragment.isSearchFragment()) {
+//        if (!ocFileListFragment.isSearchFragment()) {
             IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
             syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
@@ -1275,7 +1275,7 @@ public class FileDisplayActivity extends FileActivity
             syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
             mSyncBroadcastReceiver = new SyncBroadcastReceiver();
             localBroadcastManager.registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
-        }
+//        }
 
         // Listen for upload messages
         IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
@@ -1291,22 +1291,20 @@ public class FileDisplayActivity extends FileActivity
         // setup drawer
         menuItemId = getIntent().getIntExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
 
-        if (menuItemId == -1) {
-            if (MainApp.isOnlyOnDevice()) {
-                setDrawerMenuItemChecked(R.id.nav_on_device);
-                setupToolbar();
-            } else {
-                setDrawerMenuItemChecked(R.id.nav_all_files);
-                setupHomeSearchToolbarWithSortAndListButtons();
-            }
-        } else {
-            if (menuItemId == R.id.nav_all_files) {
-                setupHomeSearchToolbarWithSortAndListButtons();
-            } else {
-                setupToolbar();
-            }
-            setDrawerMenuItemChecked(menuItemId);
-        }
+//        if (menuItemId == -1) {
+//            if (MainApp.isOnlyOnDevice()) {
+//                setupToolbar();
+//            } else {
+//                setupHomeSearchToolbarWithSortAndListButtons();
+//            }
+//        } else {
+//            if (menuItemId == R.id.nav_all_files) {
+//                setupHomeSearchToolbarWithSortAndListButtons();
+//            } else {
+//                setupToolbar();
+//            }
+//            setDrawerMenuItemChecked(menuItemId);
+//        }
 
         if (ocFileListFragment instanceof GalleryFragment) {
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));

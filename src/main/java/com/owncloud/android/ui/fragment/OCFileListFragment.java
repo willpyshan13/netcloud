@@ -272,9 +272,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         //add pengyushan 20201221 add floating button
         registerFabListener();
         super.onResume();
-        if (registerSync) {
+//        if (registerSync) {
             ((FileDisplayActivity) requireActivity()).bindOcFileListFragment();
-        }
+//        }
     }
 
     /**
