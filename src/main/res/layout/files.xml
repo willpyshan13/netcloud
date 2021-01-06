@@ -66,13 +66,6 @@
                     android:layout_weight="2"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </LinearLayout>
-
-            <FrameLayout
-                android:id="@+id/more_fragment_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <include

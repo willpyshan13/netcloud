@@ -956,6 +956,7 @@ public class FileDataStorageManager {
             if (cursor.moveToFirst()) {
                 do {
                     OCFile child = createFileInstance(cursor);
+                    Log_OC.d("getFolderContent","child name" + child.getFileName());
                     if (!onlyOnDevice || child.existsOnDevice()) {
                         if (folderType == OCFileListFragment.FOLDER_TYPE_ALL) {
                             folderContent.add(child);
@@ -972,6 +973,8 @@ public class FileDataStorageManager {
                             if (child.getMountType().name().equals("GROUP")) {
                                 folderContent.add(child);
                             }
+                        }else {
+                            folderContent.add(child);
                         }
                     }
                 } while (cursor.moveToNext());
