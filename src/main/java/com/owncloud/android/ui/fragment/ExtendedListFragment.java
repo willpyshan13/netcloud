@@ -611,7 +611,6 @@ public class ExtendedListFragment extends Fragment implements
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                Log_OC.d("extendlist ","setMessageForEmptyList");
                 if (mEmptyListContainer != null && mEmptyListMessage != null) {
                     mEmptyListHeadline.setText(headline);
                     mEmptyListMessage.setText(message);
@@ -687,7 +686,7 @@ public class ExtendedListFragment extends Fragment implements
             @Override
             public void run() {
                 if (mEmptyListContainer != null && mEmptyListMessage != null) {
-                    mEmptyListHeadline.setText(R.string.file_list_empty_headline_empty);
+                    mEmptyListHeadline.setText(R.string.file_list_loading);
                     mEmptyListMessage.setText(R.string.file_list_empty);
 
                     mEmptyListIcon.setVisibility(View.VISIBLE);
