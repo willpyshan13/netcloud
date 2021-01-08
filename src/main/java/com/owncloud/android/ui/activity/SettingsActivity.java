@@ -698,33 +698,33 @@ public class SettingsActivity extends ThemedPreferenceActivity
 
         loadStoragePath();
 
-        ListPreference themePref = (ListPreference) findPreference("darkMode");
-
-        List<String> themeEntries = new ArrayList<>(3);
-        themeEntries.add(getString(R.string.prefs_value_theme_light));
-        themeEntries.add(getString(R.string.prefs_value_theme_dark));
-        themeEntries.add(getString(R.string.prefs_value_theme_system));
-
-        List<String> themeValues = new ArrayList<>(3);
-        themeValues.add(DarkMode.LIGHT.name());
-        themeValues.add(DarkMode.DARK.name());
-        themeValues.add(DarkMode.SYSTEM.name());
-
-        themePref.setEntries(themeEntries.toArray(new String[0]));
-        themePref.setEntryValues(themeValues.toArray(new String[0]));
-
-        if (TextUtils.isEmpty(themePref.getEntry())) {
-            themePref.setValue(DarkMode.SYSTEM.name());
-            themePref.setSummary(TextUtils.isEmpty(themePref.getEntry()) ? DarkMode.SYSTEM.name() : themePref.getEntry());
-        }
-
-        themePref.setOnPreferenceChangeListener((preference, newValue) -> {
-            DarkMode mode = DarkMode.valueOf((String) newValue);
-            preferences.setDarkThemeMode(mode);
-            MainApp.setAppTheme(mode);
-
-            return true;
-        });
+//        ListPreference themePref = (ListPreference) findPreference("darkMode");
+//
+//        List<String> themeEntries = new ArrayList<>(3);
+//        themeEntries.add(getString(R.string.prefs_value_theme_light));
+//        themeEntries.add(getString(R.string.prefs_value_theme_dark));
+//        themeEntries.add(getString(R.string.prefs_value_theme_system));
+//
+//        List<String> themeValues = new ArrayList<>(3);
+//        themeValues.add(DarkMode.LIGHT.name());
+//        themeValues.add(DarkMode.DARK.name());
+//        themeValues.add(DarkMode.SYSTEM.name());
+//
+//        themePref.setEntries(themeEntries.toArray(new String[0]));
+//        themePref.setEntryValues(themeValues.toArray(new String[0]));
+//
+//        if (TextUtils.isEmpty(themePref.getEntry())) {
+//            themePref.setValue(DarkMode.SYSTEM.name());
+//            themePref.setSummary(TextUtils.isEmpty(themePref.getEntry()) ? DarkMode.SYSTEM.name() : themePref.getEntry());
+//        }
+//
+//        themePref.setOnPreferenceChangeListener((preference, newValue) -> {
+//            DarkMode mode = DarkMode.valueOf((String) newValue);
+//            preferences.setDarkThemeMode(mode);
+//            MainApp.setAppTheme(mode);
+//
+//            return true;
+//        });
     }
 
     private String getAppVersion() {
