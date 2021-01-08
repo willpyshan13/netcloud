@@ -317,9 +317,9 @@ public class FileDisplayActivity extends FileActivity
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.homeFragment);
                             setupHomeSearchToolbar();
                             if (fileDisplayPage.homeFragment.showAddBtn()) {
-                                binding.fabMain.setVisibility(View.VISIBLE);
+                                setFabVisible(true);
                             } else {
-                                binding.fabMain.setVisibility(View.GONE);
+                                setFabVisible(false);
                             }
                             break;
                         case R.id.nav_favorites:
@@ -327,9 +327,9 @@ public class FileDisplayActivity extends FileActivity
                             showSortListGroup(false);
                             setupToolbar();
                             if (fileDisplayPage.isShowFavAddBtn()) {
-                                binding.fabMain.setVisibility(View.VISIBLE);
+                                setFabVisible(true);
                             } else {
-                                binding.fabMain.setVisibility(View.GONE);
+                                setFabVisible(false);
                             }
                             break;
                         case R.id.nav_shared:
@@ -337,16 +337,16 @@ public class FileDisplayActivity extends FileActivity
                             showSortListGroup(false);
                             setupToolbar();
                             if (fileDisplayPage.sharedFragment.showAddBtn()) {
-                                binding.fabMain.setVisibility(View.VISIBLE);
+                                setFabVisible(true);
                             } else {
-                                binding.fabMain.setVisibility(View.GONE);
+                                setFabVisible(false);
                             }
                             break;
                         case R.id.nav_more:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.moreFragment);
                             showSortListGroup(false);
                             setupToolbar();
-                            binding.fabMain.setVisibility(View.GONE);
+                            setFabVisible(false);
                             break;
                     }
                     OCFileListFragment fragment = getListOfFilesFragment();
@@ -1174,7 +1174,7 @@ public class FileDisplayActivity extends FileActivity
                             if (!((MoreFragment) fileDisplayPage.currentFragment).isRoot()) {
                                 ((MoreFragment) fileDisplayPage.currentFragment).removeFiles();
                                 updateActionBarTitleAndHomeButton(null);
-                                binding.fabMain.setVisibility(View.GONE);
+                                setFabVisible(false);
                                 return;
                             }
                         }
@@ -1183,7 +1183,7 @@ public class FileDisplayActivity extends FileActivity
                                 ((SharedFragment) fileDisplayPage.currentFragment).removeFiles();
                                 showSortListGroup(false);
                                 setupToolbar();
-                                binding.fabMain.setVisibility(View.GONE);
+                                setFabVisible(false);
                                 return;
                             }
                         }
@@ -1191,7 +1191,7 @@ public class FileDisplayActivity extends FileActivity
                             if (!((HomeAllFileFragment) fileDisplayPage.currentFragment).isRoot()) {
                                 ((HomeAllFileFragment) fileDisplayPage.currentFragment).removeFiles();
                                 updateActionBarTitleAndHomeButton(null);
-                                binding.fabMain.setVisibility(View.GONE);
+                                setFabVisible(false);
                                 return;
                             }
                         }

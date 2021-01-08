@@ -224,7 +224,7 @@ public class ExtendedListFragment extends Fragment implements
                 if (getActivity() instanceof FileDisplayActivity) {
                     OCFileListFragment fileFragment = ((FileDisplayActivity) getActivity()).getListOfFilesFragment();
                     if (fileFragment != null) {
-                        fileFragment.setFabVisible(!hasFocus);
+//                        fileFragment.setFabVisible(!hasFocus);
                     }
                 }
                 if (TextUtils.isEmpty(searchView.getQuery())) {
