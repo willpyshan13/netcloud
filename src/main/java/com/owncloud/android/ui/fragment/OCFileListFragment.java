@@ -273,8 +273,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         registerFabListener();
         super.onResume();
 //        if (registerSync) {
+        if (requireActivity() instanceof  FileDisplayActivity){
         ((FileDisplayActivity) requireActivity()).bindOcFileListFragment();
-//        }
+        }
     }
 
     public boolean needShowFab() {

@@ -315,7 +315,8 @@ public class FileDisplayActivity extends FileActivity
                     switch (menuItem.getItemId()) {
                         case R.id.nav_all_files:
                             fileDisplayPage.show(FileDisplayActivity.this, fileDisplayPage.homeFragment);
-                            setupHomeSearchToolbar();
+                            showSortListGroup(false);
+                            setupToolbar();
                             if (fileDisplayPage.homeFragment.showAddBtn()) {
                                 setFabVisible(true);
                             } else {
@@ -854,7 +855,7 @@ public class FileDisplayActivity extends FileActivity
         searchView.setOnCloseListener(() -> {
             if (TextUtils.isEmpty(searchView.getQuery().toString())) {
                 if (fileDisplayPage.currentFragment instanceof HomeAllFileFragment && ((HomeAllFileFragment) fileDisplayPage.currentFragment).isRoot()){
-                    setupHomeSearchToolbar();
+                    setupToolbar();
                 }else {
                     searchView.onActionViewCollapsed();
                     setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters

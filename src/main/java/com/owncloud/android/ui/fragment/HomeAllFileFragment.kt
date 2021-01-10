@@ -43,7 +43,8 @@ class HomeAllFileFragment : Fragment() {
             pageTitle = view.context.getString(R.string.etm_shared_zone)
             showFiles(null, nav_shared_zone_text.text.toString(), OCFileListFragment.FOLDER_TYPE_PUBLIC)
         }
-        (activity as? FileDisplayActivity)?.setupHomeSearchToolbar()
+        (activity as? FileDisplayActivity)?.setupToolbar()
+        (activity as? FileDisplayActivity)?.updateActionBarTitleAndHomeButtonByString(activity.getString(R.string.file_icon))
     }
 
     private fun showFiles(searchEvent: SearchEvent?, title: String, folerType: Int) {
@@ -101,7 +102,7 @@ class HomeAllFileFragment : Fragment() {
         fileFragment = null
         contentView.visibility = View.VISIBLE
         pageTitle = "/"
-        (activity as? FileDisplayActivity)?.setupHomeSearchToolbar()
+        (activity as? FileDisplayActivity)?.setupToolbar()
     }
 
     /**
