@@ -921,7 +921,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
             mFile = parentDir;
 
-            if (isShareType() && parentPath.equals("/")) {
+            if ((isShareType()||isFavoriteType()) && parentPath.equals("/")) {
                 onMessageEvent(searchEvent);
             }
             listDirectory(mFile, MainApp.isOnlyOnDevice(), false);

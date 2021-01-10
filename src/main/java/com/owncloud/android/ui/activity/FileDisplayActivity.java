@@ -811,9 +811,9 @@ public class FileDisplayActivity extends FileActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = isDrawerOpen();
 
-        for (MenuItem menuItem : mDrawerMenuItemstoShowHideList) {
-            menuItem.setVisible(!isRoot(getCurrentDir()));
-        }
+//        for (MenuItem menuItem : mDrawerMenuItemstoShowHideList) {
+//            menuItem.setVisible(!isRoot(getCurrentDir()));
+//        }
 
         return super.onPrepareOptionsMenu(menu);
     }
