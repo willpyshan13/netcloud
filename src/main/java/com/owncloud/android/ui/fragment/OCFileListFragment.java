@@ -273,19 +273,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
         registerFabListener();
         super.onResume();
 //        if (registerSync) {
-        if (requireActivity() instanceof  FileDisplayActivity){
-        ((FileDisplayActivity) requireActivity()).bindOcFileListFragment();
+        if (requireActivity() instanceof FileDisplayActivity) {
+            ((FileDisplayActivity) requireActivity()).bindOcFileListFragment();
         }
     }
 
     public boolean needShowFab() {
         if ((folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) &&
             (getCurrentFile() != null && getCurrentFile().getRemotePath().equals("/")) ||
-            searchEvent!=null&&(searchEvent.searchType == FAVORITE_SEARCH
-            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_MINE
-            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_LINK
-            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE)
-                &&getCurrentFile() != null && getCurrentFile().getRemotePath().equals("/")) {
+            searchEvent != null && (searchEvent.searchType == FAVORITE_SEARCH
+                || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_MINE
+                || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_LINK
+                || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE)
+                && getCurrentFile() != null && getCurrentFile().getRemotePath().equals("/")) {
             return false;
         } else {
             return true;
@@ -922,7 +922,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
             mFile = parentDir;
 
-            if ((isShareType()||isFavoriteType()) && parentPath.equals("/")) {
+            if ((isShareType() || isFavoriteType()) && parentPath.equals("/")) {
                 onMessageEvent(searchEvent);
             }
             listDirectory(mFile, MainApp.isOnlyOnDevice(), false);
@@ -1009,16 +1009,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_LINK
                             || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE) {
                             setFabVisible(true);
-                            ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
+                            if (requireActivity() instanceof FileDisplayActivity) {
+                                ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
+                            }
                         }
                     } else {
                         if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
                             setFabVisible(true);
-                            ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
+                            if (requireActivity() instanceof FileDisplayActivity) {
+                                ((FileDisplayActivity) requireActivity()).showShareAddBtn(true);
+                            }
                         }
                     }
-
-                    ((FileDisplayActivity) requireActivity()).onFolderClick();
+                    if (requireActivity() instanceof FileDisplayActivity) {
+                        ((FileDisplayActivity) requireActivity()).onFolderClick();
+                    }
 
                     if (file.isEncrypted()) {
                         User user = ((FileActivity) mContainerActivity).getUser().orElseThrow(RuntimeException::new);
@@ -1996,7 +2001,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * When 'false' is set, FAB visibility is set to View.GONE programmatically.
      */
     public void showFabVisible() {
-        if (getActivity() != null) {
+        if (getActivity() != null && getActivity() instanceof FileDisplayActivity) {
             getActivity().runOnUiThread(() -> {
                 if (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) {
                     if (!mFile.getRemotePath().equals("/")) {
