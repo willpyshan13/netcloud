@@ -278,12 +278,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public boolean needShowFab() {
-        if ((searchEvent != null && (folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC
-            || searchEvent.searchType == FAVORITE_SEARCH
+        if ((folderType == FOLDER_TYPE_GROUP || folderType == FOLDER_TYPE_PUBLIC) &&
+            (getCurrentFile() != null && getCurrentFile().getRemotePath().equals("/")) ||
+            searchEvent!=null&&(searchEvent.searchType == FAVORITE_SEARCH
             || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_MINE
             || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_LINK
-            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE)) &&
-            (getCurrentFile() != null && getCurrentFile().getRemotePath().equals("/"))) {
+            || searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER_TO_MINE)
+                &&getCurrentFile() != null && getCurrentFile().getRemotePath().equals("/")) {
             return false;
         } else {
             return true;
